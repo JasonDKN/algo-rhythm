@@ -38,6 +38,8 @@
   .phrase-flag { font-size:26px; }
   .phrase-lang { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-dim); margin:6px 0 4px; }
   .phrase-text { font-size:15px; font-weight:600; }
+  .phrase-ipa { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-dim); margin-top:4px; }
+  .phrase-audio { width:100%; height:32px; margin-top:10px; }
 
   .discovery-section { background: linear-gradient(120deg,#3D2A17,#1F2233); border:1px solid var(--line); border-radius:14px; padding:22px 24px; }
   .discovery-question { font-size:17px; margin: 0 0 16px; }
@@ -68,7 +70,7 @@
 <header>
   <div class="eyebrow">Personal Feed &middot; Updated Daily</div>
   <h1>Daily Mix</h1>
-  <div class="meta">Generated 2026-07-17 18:07 UTC &middot; there</div>
+  <div class="meta">Generated 2026-07-17 19:17 UTC &middot; there</div>
 </header>
 
 <div class="summary-bar">
@@ -86,27 +88,37 @@
       <div class="phrase-card">
         <div class="phrase-flag">🇻🇳</div>
         <div class="phrase-lang">Vietnamese</div>
-        <div class="phrase-text">Anh nhớ em</div>
+        <div class="phrase-text">Tôi nhớ bạn</div>
+        <div class='phrase-ipa'>[t̪ˈo1j ɲˈəːɜ bˈaː6n]</div>
+        <audio controls preload='none' class='phrase-audio'><source src='audio/vi/i_miss_you.mp3' type='audio/mpeg'></audio>
       </div>
       <div class="phrase-card">
         <div class="phrase-flag">🇰🇷</div>
         <div class="phrase-lang">Korean</div>
-        <div class="phrase-text">여기 혼자 심심해 할 일도 없고 할 말도 없고</div>
+        <div class="phrase-text">보고 싶어요</div>
+        <div class='phrase-ipa'>[pˈoqo sˈiphʌjˌo]</div>
+        <audio controls preload='none' class='phrase-audio'><source src='audio/ko/i_miss_you.mp3' type='audio/mpeg'></audio>
       </div>
       <div class="phrase-card">
         <div class="phrase-flag">🇫🇷</div>
         <div class="phrase-lang">French</div>
-        <div class="phrase-text">Je veux lécher ta chatte serrée</div>
+        <div class="phrase-text">Tu me manques</div>
+        <div class='phrase-ipa'>[ty mə- mˈɑ̃k]</div>
+        <audio controls preload='none' class='phrase-audio'><source src='audio/fr/i_miss_you.mp3' type='audio/mpeg'></audio>
       </div>
       <div class="phrase-card">
         <div class="phrase-flag">🇪🇸</div>
         <div class="phrase-lang">Spanish</div>
-        <div class="phrase-text">Te echo de menos</div>
+        <div class="phrase-text">Te extraño</div>
+        <div class='phrase-ipa'>[te ekstɾˈaɲo]</div>
+        <audio controls preload='none' class='phrase-audio'><source src='audio/es/i_miss_you.mp3' type='audio/mpeg'></audio>
       </div>
       <div class="phrase-card">
         <div class="phrase-flag">🇺🇦</div>
         <div class="phrase-lang">Ukrainian</div>
-        <div class="phrase-text">Не хватає тебе</div>
+        <div class="phrase-text">Я сумую за тобою</div>
+        <div class='phrase-ipa'>[ˈja sumˈuju zˈɑ tʌbˈoju]</div>
+        <audio controls preload='none' class='phrase-audio'><source src='audio/uk/i_miss_you.mp3' type='audio/mpeg'></audio>
       </div></div>
     </section>
 
@@ -156,11 +168,11 @@
           <span class="topic-chip" style="background:#FB923C33; color:#FB923C">Nba</span>
           <span class='stamp'>NEW</span>
         </div>
-        <a class="card-title" href="https://news.google.com/rss/articles/CBMisgFBVV95cUxOWWVjUVNqbF9GeW1teS01Vl9xRVR6NWtjOWhFQzB2NnFWLV9raENMclo4ck9PTlFQekFEZ2ctVW1pVUtWM3dLSVM0NVZBbE9kajlIVHJyY3ZQa1dHSVNVbkljaG43MVNXbTVoaVp6cjNGc3FqenVyamJBNlM2OEtFTVVyUnYxWTljcDVwWExKa2d3UmtaaHozMlEtYjhtaG9FOW83MnQtTmItbjlrbUJtME13?oc=5" target="_blank" rel="noopener">Why the Giannis Trade and 4 Other NBA Offseason Moves Are Sure To Backfire - Bleacher Report</a>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMikwFBVV95cUxQT0tTTHhTVkJ1Vmo2anVvTFBDUVctbnJMMnQxNjF1eEVnRnBNZlpXYmNHTFR6YzRZX0tTMDVnN0prMHk2UGZRU3RSMThna2FaN0g3bGhUZmtJZndidm92am41azNuXzZuTXFBcFJ4NTA1a0xzYVV3TExNYThxRDFmQUVwSzJEMWxMTkctdUVSeFZnZm8?oc=5" target="_blank" rel="noopener">5 Cheap NBA Free Agents Every Team Could Use - Bleacher Report</a>
         <div class="card-meta">Bleacher Report &middot; Article</div>
         <div class="card-feedback">
-          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Why+the+Giannis+Trade+and+4+Other+NBA+Offseason+Moves+Are+Sure+To+Backfire+-+Ble&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-zMlEtYjhtaG9FOW83MnQtTmItbjlrbUJtME13oc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Bleacher+Report%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Why+the+Giannis+Trade+and+4+Other+NBA+Offseason+Moves+Are+Sure+To+Backfire+-+Bleacher+Report%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMisgFBVV95cUxOWWVjUVNqbF9GeW1teS01Vl9xRVR6NWtjOWhFQzB2NnFWLV9raENMclo4ck9PTlFQekFEZ2ctVW1pVUtWM3dLSVM0NVZBbE9kajlIVHJyY3ZQa1dHSVNVbkljaG43MVNXbTVoaVp6cjNGc3FqenVyamJBNlM2OEtFTVVyUnYxWTljcDVwWExKa2d3UmtaaHozMlEtYjhtaG9FOW83MnQtTmItbjlrbUJtME13%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Why+the+Giannis+Trade+and+4+Other+NBA+Offseason+Moves+Are+Sure+To+Backfire+-+Ble&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-zMlEtYjhtaG9FOW83MnQtTmItbjlrbUJtME13oc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Bleacher+Report%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Why+the+Giannis+Trade+and+4+Other+NBA+Offseason+Moves+Are+Sure+To+Backfire+-+Bleacher+Report%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMisgFBVV95cUxOWWVjUVNqbF9GeW1teS01Vl9xRVR6NWtjOWhFQzB2NnFWLV9raENMclo4ck9PTlFQekFEZ2ctVW1pVUtWM3dLSVM0NVZBbE9kajlIVHJyY3ZQa1dHSVNVbkljaG43MVNXbTVoaVp6cjNGc3FqenVyamJBNlM2OEtFTVVyUnYxWTljcDVwWExKa2d3UmtaaHozMlEtYjhtaG9FOW83MnQtTmItbjlrbUJtME13%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+5+Cheap+NBA+Free+Agents+Every+Team+Could+Use+-+Bleacher+Report&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-xNYThxRDFmQUVwSzJEMWxMTkctdUVSeFZnZm8oc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Bleacher+Report%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+5+Cheap+NBA+Free+Agents+Every+Team+Could+Use+-+Bleacher+Report%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMikwFBVV95cUxQT0tTTHhTVkJ1Vmo2anVvTFBDUVctbnJMMnQxNjF1eEVnRnBNZlpXYmNHTFR6YzRZX0tTMDVnN0prMHk2UGZRU3RSMThna2FaN0g3bGhUZmtJZndidm92am41azNuXzZuTXFBcFJ4NTA1a0xzYVV3TExNYThxRDFmQUVwSzJEMWxMTkctdUVSeFZnZm8%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+5+Cheap+NBA+Free+Agents+Every+Team+Could+Use+-+Bleacher+Report&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-xNYThxRDFmQUVwSzJEMWxMTkctdUVSeFZnZm8oc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Bleacher+Report%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+5+Cheap+NBA+Free+Agents+Every+Team+Could+Use+-+Bleacher+Report%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMikwFBVV95cUxQT0tTTHhTVkJ1Vmo2anVvTFBDUVctbnJMMnQxNjF1eEVnRnBNZlpXYmNHTFR6YzRZX0tTMDVnN0prMHk2UGZRU3RSMThna2FaN0g3bGhUZmtJZndidm92am41azNuXzZuTXFBcFJ4NTA1a0xzYVV3TExNYThxRDFmQUVwSzJEMWxMTkctdUVSeFZnZm8%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
         </div>
       </div>
     </div>
@@ -171,11 +183,11 @@
           <span class="topic-chip" style="background:#FB923C33; color:#FB923C">Nba</span>
           <span class='stamp'>NEW</span>
         </div>
-        <a class="card-title" href="https://news.google.com/rss/articles/CBMihwFBVV95cUxOMm1rVm5sdmlYdlpFMm8ySnplemlXZUtEM0FiQUEtcG9yV0pzOEFveHdPN2NHVlItN3hOYTZ3VGZMMFVxWDAtRDNvV2hUZ253ZjIyUlpmVjNzYm9zUUhDQmd4VTRmV2I4c2RySWthYjNJSWFEX2F6YVhhU181aURWcTQ2RkVJS3M?oc=5" target="_blank" rel="noopener">NBA Players Leaving Money on the Table Has Become a Valuable Weapon - Yahoo Sports</a>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMijwFBVV95cUxOQXNWQV9BZklEYVpFbF8xUUN2OG14bUc0LXliUzRJbi1Mb0p4RFpqWURDYkxKUmU3SjFpXzVpRW5EZ2tiUXpoc0RaR0t4U1JNa1BEN29iQ3hGbk9BOFhyaEpGbHdpdE9SSGg1ZkZwUUVNelhpdm5HZXg3V0xPb0wyMGdwVDViQm8yLXNXSC0ybw?oc=5" target="_blank" rel="noopener">NBA Legend Dwight Howard Surprisingly Runs Into Ex-Lakers Star - Yahoo Sports</a>
         <div class="card-meta">Yahoo Sports &middot; Article</div>
         <div class="card-feedback">
-          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+NBA+Players+Leaving+Money+on+the+Table+Has+Become+a+Valuable+Weapon+-+Yahoo+Spor&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-thYjNJSWFEX2F6YVhhU181aURWcTQ2RkVJS3Moc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Yahoo+Sports%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+NBA+Players+Leaving+Money+on+the+Table+Has+Become+a+Valuable+Weapon+-+Yahoo+Sports%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMihwFBVV95cUxOMm1rVm5sdmlYdlpFMm8ySnplemlXZUtEM0FiQUEtcG9yV0pzOEFveHdPN2NHVlItN3hOYTZ3VGZMMFVxWDAtRDNvV2hUZ253ZjIyUlpmVjNzYm9zUUhDQmd4VTRmV2I4c2RySWthYjNJSWFEX2F6YVhhU181aURWcTQ2RkVJS3M%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+NBA+Players+Leaving+Money+on+the+Table+Has+Become+a+Valuable+Weapon+-+Yahoo+Spor&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-thYjNJSWFEX2F6YVhhU181aURWcTQ2RkVJS3Moc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Yahoo+Sports%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+NBA+Players+Leaving+Money+on+the+Table+Has+Become+a+Valuable+Weapon+-+Yahoo+Sports%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMihwFBVV95cUxOMm1rVm5sdmlYdlpFMm8ySnplemlXZUtEM0FiQUEtcG9yV0pzOEFveHdPN2NHVlItN3hOYTZ3VGZMMFVxWDAtRDNvV2hUZ253ZjIyUlpmVjNzYm9zUUhDQmd4VTRmV2I4c2RySWthYjNJSWFEX2F6YVhhU181aURWcTQ2RkVJS3M%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+NBA+Legend+Dwight+Howard+Surprisingly+Runs+Into+Ex-Lakers+Star+-+Yahoo+Sports&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-m5HZXg3V0xPb0wyMGdwVDViQm8yLXNXSC0ybwoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Yahoo+Sports%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+NBA+Legend+Dwight+Howard+Surprisingly+Runs+Into+Ex-Lakers+Star+-+Yahoo+Sports%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMijwFBVV95cUxOQXNWQV9BZklEYVpFbF8xUUN2OG14bUc0LXliUzRJbi1Mb0p4RFpqWURDYkxKUmU3SjFpXzVpRW5EZ2tiUXpoc0RaR0t4U1JNa1BEN29iQ3hGbk9BOFhyaEpGbHdpdE9SSGg1ZkZwUUVNelhpdm5HZXg3V0xPb0wyMGdwVDViQm8yLXNXSC0ybw%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+NBA+Legend+Dwight+Howard+Surprisingly+Runs+Into+Ex-Lakers+Star+-+Yahoo+Sports&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-m5HZXg3V0xPb0wyMGdwVDViQm8yLXNXSC0ybwoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Yahoo+Sports%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+NBA+Legend+Dwight+Howard+Surprisingly+Runs+Into+Ex-Lakers+Star+-+Yahoo+Sports%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMijwFBVV95cUxOQXNWQV9BZklEYVpFbF8xUUN2OG14bUc0LXliUzRJbi1Mb0p4RFpqWURDYkxKUmU3SjFpXzVpRW5EZ2tiUXpoc0RaR0t4U1JNa1BEN29iQ3hGbk9BOFhyaEpGbHdpdE9SSGg1ZkZwUUVNelhpdm5HZXg3V0xPb0wyMGdwVDViQm8yLXNXSC0ybw%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
         </div>
       </div>
     </div>
