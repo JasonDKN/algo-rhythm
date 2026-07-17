@@ -148,23 +148,77 @@ topics" behavior you asked for.
 
 Every digest includes one everyday English phrase (rotating daily from
 `data/phrase_bank.json`, ~30 phrases) translated into Vietnamese, Korean,
-French, Spanish, and Ukrainian via the free MyMemory Translation API (no
-key required).
+French, Spanish, and Ukrainian.
 
-**Honest caveat:** MyMemory is a crowdsourced translation memory, not a
-dedicated professional service — quality is generally fine for simple
-everyday phrases like these but can be inconsistent, especially for
-idiomatic expressions. Treat it as a fun daily touchpoint, not a language
-authority.
+**Translations come from `data/phrase_translations.json` first** — a
+curated, hand-checked table covering all 30 phrases in the current bank —
+and only fall back to the live MyMemory Translation API for a phrase that
+isn't in that table (e.g. if you add new ones later).
 
-**To add more languages later:** just add an entry to `"languages"` in
-`config.json` with the ISO 639-1 code MyMemory expects, e.g.:
+**Why it's built this way — this was a real incident, not a hypothetical:**
+during testing, MyMemory translated "I miss you" into French as sexually
+explicit text with zero relation to the phrase. MyMemory's translation
+memory is aggregated from crowdsourced and scraped bilingual corpora
+(including movie/subtitle datasets), so a short, common phrase can
+accidentally match a low-confidence, completely unrelated pair from that
+pool. The original code trusted whatever came back. It shouldn't have.
+
+Two fixes are now in place:
+1. The 30 phrases you're actually using never call the live API at all.
+2. If a phrase *does* fall back to MyMemory (new phrases only), any match
+   below a strict 0.75 confidence score is rejected outright — you'll see
+   "unavailable today" for that language rather than an unvetted guess.
+
+**If you add new phrases to `phrase_bank.json`:** add a matching entry to
+`phrase_translations.json` too if you want a guaranteed-safe translation
+for it (I'm happy to help translate a batch anytime); otherwise it'll rely
+on the confidence-gated live fallback, which is much safer than before but
+not absolutely bulletproof.
+
+One more honest note: the curated translations were written by an AI
+(me), not verified by a professional translator or native speaker for
+every language. They're standard, common phrases with low ambiguity, so
+I'm reasonably confident in them, but if you have a native speaker on hand
+for Korean or Ukrainian in particular, a sanity check wouldn't hurt.
+
+**To add more languages later:** add an entry to `"languages"` in
+`config.json`:
 ```json
 {"code": "ja", "label": "Japanese", "flag": "🇯🇵"}
 ```
-No code changes needed.
+Any phrase without a curated entry for that language code will go through
+the same confidence-gated MyMemory fallback.
 
-## 11. The visual redesign
+## 11. Pronunciation — IPA and audio
+
+Each phrase card now shows an IPA transcription and a playable audio clip,
+generated with **espeak-ng** (open-source, offline, no API key, no
+per-request cost, and — importantly after the translation incident above —
+deterministic rather than crowdsourced, so there's no risk of an unrelated
+or inappropriate result coming back).
+
+For the current 30-phrase bank, everything is pre-generated and committed
+as static assets:
+- `data/phrase_ipa.json` — IPA text for all 30 phrases × 5 languages
+- `docs/audio/<lang>/<phrase-slug>.mp3` — 150 short audio clips (~2 MB total)
+
+Normal daily runs just read these files — they don't need espeak-ng
+installed at all for existing phrases.
+
+**If you add a new phrase to `phrase_bank.json`:** `daily-digest.yml` now
+installs `espeak-ng` and `ffmpeg` as a fallback, so `pronunciation.py`
+generates the missing IPA + audio on the fly the first time that phrase is
+selected, then commits the new files so it's a one-time cost per phrase,
+same self-extending pattern as the discovered-topics feature.
+
+**Honest limitation:** espeak-ng's IPA is a speech synthesizer's internal
+phonetic approximation, not a linguist's transcription. It's consistent
+and safe, but for Vietnamese specifically, tones show up as digits (1–6)
+attached to the vowel rather than proper IPA tone diacritics — that's
+espeak's own notation convention, not a bug, but worth knowing before
+treating it as a formal phonetic reference.
+
+## 12. The visual redesign
 
 The dashboard is now a colorful card grid instead of a plain table:
 YouTube thumbnails and book covers render as real images; anything without
@@ -175,7 +229,7 @@ card borders, and section styling. The email digest got the same treatment
 — thumbnails, colored left-borders per topic, and the Phrase of the Day /
 Daily Discovery sections included inline.
 
-## 12. Tune it
+## 13. Tune it
 
 Everything about *what* gets fetched and *how much* lives in `config.json`:
 

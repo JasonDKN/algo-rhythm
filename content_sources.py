@@ -6,6 +6,7 @@ Content source fetchers. Each function returns a list of normalized item dicts:
 import os
 import re
 import html
+import json
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 
@@ -250,26 +251,87 @@ def fetch_podcasts(search_term, max_duration_minutes, max_results=3):
 # ---------------------------------------------------------------------------
 
 def fetch_translations(phrase, languages):
-    """languages: list of {'code','label','flag'} dicts."""
-    email = os.environ.get("TO_EMAIL", "")
+    """Looks up each language in the curated data/phrase_translations.json
+    table first (hand-checked, no live API call). Only falls back to
+    MyMemory for phrases not in that table — e.g. if you add new phrases
+    to phrase_bank.json later — and even then, rejects any match below a
+    strict confidence threshold rather than showing whatever comes back.
+
+    This exists because MyMemory's translation memory is crowdsourced from
+    aggregated corpora (including movie/subtitle datasets) and can return
+    a low-confidence match containing explicit content for an entirely
+    innocuous phrase. That happened during testing (a French mistranslation
+    of "I miss you"), which is why the curated table is the primary path,
+    not the fallback.
+    """
+    curated = _load_curated_translations()
+    entry = curated.get(phrase, {})
+
     results = []
     for lang in languages:
-        url = "https://api.mymemory.translated.net/get"
-        params = {"q": phrase, "langpair": f"en|{lang['code']}"}
-        if email:
-            params["de"] = email
-        try:
-            r = requests.get(url, params=params, timeout=REQUEST_TIMEOUT)
-            r.raise_for_status()
-            data = r.json()
-            translated = data.get("responseData", {}).get("translatedText", "")
-        except Exception as e:
-            print(f"[translate] {lang['code']} failed: {e}")
-            translated = ""
-        results.append({
-            "code": lang["code"],
-            "label": lang["label"],
-            "flag": lang.get("flag", ""),
-            "translated": html.unescape(translated) if translated else "",
-        })
+        if lang["code"] in entry:
+            results.append({
+                "code": lang["code"], "label": lang["label"], "flag": lang.get("flag", ""),
+                "translated": entry[lang["code"]],
+            })
+        else:
+            results.append(_fetch_translation_live(phrase, lang))
     return results
+
+
+def _load_curated_translations():
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "phrase_translations.json")
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        return {}
+
+
+MIN_MATCH_CONFIDENCE = 0.75  # reject anything below this rather than risk showing junk
+
+
+def _fetch_translation_live(phrase, lang):
+    """MyMemory fallback for phrases with no curated entry. Only accepts a
+    match at or above MIN_MATCH_CONFIDENCE; otherwise returns no translation
+    for that language rather than guessing."""
+    email = os.environ.get("TO_EMAIL", "")
+    url = "https://api.mymemory.translated.net/get"
+    params = {"q": phrase, "langpair": f"en|{lang['code']}"}
+    if email:
+        params["de"] = email
+
+    translated = ""
+    try:
+        r = requests.get(url, params=params, timeout=REQUEST_TIMEOUT)
+        r.raise_for_status()
+        data = r.json()
+
+        candidates = []
+        primary = data.get("responseData", {})
+        if primary.get("translatedText"):
+            candidates.append((primary.get("match", 0), primary["translatedText"]))
+        for m in data.get("matches", []):
+            try:
+                score = float(m.get("match", 0))
+            except (TypeError, ValueError):
+                score = 0
+            if m.get("translation"):
+                candidates.append((score, m["translation"]))
+
+        candidates.sort(key=lambda c: c[0], reverse=True)
+        for score, text in candidates:
+            if score >= MIN_MATCH_CONFIDENCE:
+                translated = text
+                break
+        if not translated:
+            print(f"[translate] {lang['code']}: no match met the {MIN_MATCH_CONFIDENCE} confidence bar for '{phrase}' — skipping rather than guessing.")
+    except Exception as e:
+        print(f"[translate] {lang['code']} failed: {e}")
+
+    return {
+        "code": lang["code"], "label": lang["label"], "flag": lang.get("flag", ""),
+        "translated": html.unescape(translated) if translated else "",
+    }
