@@ -86,12 +86,12 @@
   ],
 
   "languages": [
-  {"code": "vi", "label": "Vietnamese", "flag": "🇻🇳"},
-  {"code": "ko", "label": "Korean", "flag": "🇰🇷"},
-  {"code": "fr", "label": "French", "flag": "🇫🇷"},
-  {"code": "es", "label": "Spanish", "flag": "🇪🇸"},
-  {"code": "uk", "label": "Ukrainian", "flag": "🇺🇦"}
-],
+    {"code": "vi", "label": "Vietnamese", "flag": "\ud83c\uddfb\ud83c\uddf3"},
+    {"code": "ko", "label": "Korean", "flag": "\ud83c\uddf0\ud83c\uddf7"},
+    {"code": "fr", "label": "French", "flag": "\ud83c\uddeb\ud83c\uddf7"},
+    {"code": "es", "label": "Spanish", "flag": "\ud83c\uddea\ud83c\uddf8"},
+    {"code": "uk", "label": "Ukrainian", "flag": "\ud83c\uddfa\ud83c\udde6"}
+  ],
 
-  "dashboard_url": "https://jasondkn.github.io/algo-rhythm"
+  "dashboard_url": "https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPO-NAME/"
 }
