@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install system dependencies (espeak-ng for pronunciation fallback)
+        run: sudo apt-get update -qq && sudo apt-get install -y espeak-ng ffmpeg
+
       - name: Install dependencies
         run: pip install -r requirements.txt
 
@@ -33,6 +36,6 @@ jobs:
         run: |
           git config user.name "content-digest-bot"
           git config user.email "actions@github.com"
-          git add data/seen_items.json data/taste_profile.json docs/index.html
+          git add data/seen_items.json data/taste_profile.json data/phrase_ipa.json docs/index.html docs/audio
           git diff --quiet --cached || git commit -m "Update daily digest [skip ci]"
           git push

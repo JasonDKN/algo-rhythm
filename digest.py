@@ -27,6 +27,7 @@ import taste_profile as tp
 import weekly_focus as wf
 import discovered_topics as dt
 import daily_discovery as dd
+import pronunciation as pron
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 CONFIG_PATH = os.path.join(ROOT, "config.json")
@@ -246,17 +247,28 @@ def render_card(item, score, is_new, repo):
 
 
 def render_phrase_section(phrase, translations, repo):
-    cards = "".join(f"""
+    cards = []
+    for t in translations:
+        ipa, audio_rel = pron.get_pronunciation(phrase, t["code"], t["translated"]) if t["translated"] else ("", "")
+        ipa_html = f"<div class='phrase-ipa'>[{html.escape(ipa)}]</div>" if ipa else ""
+        audio_html = (
+            f"<audio controls preload='none' class='phrase-audio'>"
+            f"<source src='{html.escape(audio_rel)}' type='audio/mpeg'></audio>"
+            if audio_rel else ""
+        )
+        cards.append(f"""
       <div class="phrase-card">
         <div class="phrase-flag">{t['flag']}</div>
         <div class="phrase-lang">{html.escape(t['label'])}</div>
         <div class="phrase-text">{html.escape(t['translated']) if t['translated'] else '<em>unavailable today</em>'}</div>
-      </div>""" for t in translations)
+        {ipa_html}
+        {audio_html}
+      </div>""")
     return f"""
     <section class="phrase-section">
       <h2 class="section-title">\U0001F30D Phrase of the Day</h2>
       <p class="phrase-english">"{html.escape(phrase)}"</p>
-      <div class="phrase-grid">{cards}</div>
+      <div class="phrase-grid">{''.join(cards)}</div>
     </section>"""
 
 
@@ -318,6 +330,8 @@ def generate_dashboard(selected, new_ids, config, repo, generated_at, phrase, tr
   .phrase-flag {{ font-size:26px; }}
   .phrase-lang {{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-dim); margin:6px 0 4px; }}
   .phrase-text {{ font-size:15px; font-weight:600; }}
+  .phrase-ipa {{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-dim); margin-top:4px; }}
+  .phrase-audio {{ width:100%; height:32px; margin-top:10px; }}
 
   .discovery-section {{ background: linear-gradient(120deg,#3D2A17,#1F2233); border:1px solid var(--line); border-radius:14px; padding:22px 24px; }}
   .discovery-question {{ font-size:17px; margin: 0 0 16px; }}
@@ -418,10 +432,18 @@ def send_email(selected, new_ids, dashboard_url, repo, phrase, translations, que
             f"</li>"
         )
 
-    phrase_html = "".join(
-        f"<span style='display:inline-block;margin:4px 10px 4px 0'>{t['flag']} <b>{html.escape(t['translated']) if t['translated'] else '-'}</b> <span style='color:#888'>({html.escape(t['label'])})</span></span>"
-        for t in translations
-    )
+    phrase_html = ""
+    for t in translations:
+        ipa, audio_rel = pron.get_pronunciation(phrase, t["code"], t["translated"]) if t["translated"] else ("", "")
+        ipa_span = f" <span style='color:#aaa;font-family:monospace'>[{html.escape(ipa)}]</span>" if ipa else ""
+        audio_link = ""
+        if audio_rel and dashboard_url:
+            audio_url = dashboard_url.rstrip("/") + "/" + audio_rel
+            audio_link = f" <a href='{html.escape(audio_url)}'>\U0001F50A play</a>"
+        phrase_html += (
+            f"<div style='margin:4px 0'>{t['flag']} <b>{html.escape(t['translated']) if t['translated'] else '-'}</b>"
+            f" <span style='color:#888'>({html.escape(t['label'])})</span>{ipa_span}{audio_link}</div>"
+        )
 
     text_body = "\n".join(text_lines) + f"\n\nPhrase of the day: \"{phrase}\"\n"
     text_body += "\n".join(f"{t['label']}: {t['translated']}" for t in translations)
