@@ -1,0 +1,89 @@
+{
+  "recipient_name": "there",
+  "local_news_location": "Calgary, AB",
+
+  "items_per_topic": 2,
+  "score_threshold": 1,
+  "wildcard_enabled": true,
+
+  "topics": [
+    {
+      "id": "bts",
+      "label": "BTS",
+      "kind": "fandom",
+      "news_queries": ["BTS", "BTS Arirang World Tour", "BTS Bangtan"],
+      "youtube_queries": ["BTS", "BTS Arirang tour", "BTS live"],
+      "static_weight": 5
+    },
+    {
+      "id": "nba",
+      "label": "NBA",
+      "kind": "sports",
+      "news_queries": ["NBA"],
+      "youtube_queries": ["NBA highlights"],
+      "static_weight": 4
+    },
+    {
+      "id": "nfl",
+      "label": "NFL",
+      "kind": "sports",
+      "news_queries": ["NFL"],
+      "youtube_queries": ["NFL highlights"],
+      "static_weight": 4
+    },
+    {
+      "id": "smash",
+      "label": "Super Smash Bros",
+      "kind": "gaming",
+      "news_queries": ["Super Smash Bros Ultimate", "Smash Bros tournament"],
+      "youtube_queries": ["Smash Bros highlights", "Smash Ultimate tournament"],
+      "static_weight": 4
+    },
+    {
+      "id": "valorant",
+      "label": "Valorant",
+      "kind": "gaming",
+      "news_queries": ["Valorant esports", "Valorant patch"],
+      "youtube_queries": ["Valorant highlights", "Valorant pro play"],
+      "static_weight": 4
+    },
+    {
+      "id": "world_news",
+      "label": "World & Local News",
+      "kind": "news",
+      "news_queries": ["top world news", "Calgary Alberta news"],
+      "youtube_queries": [],
+      "static_weight": 3,
+      "short_form_only": true
+    }
+  ],
+
+  "books": {
+    "enabled": true,
+    "genres": ["nonfiction", "science fiction"],
+    "items_per_digest": 1
+  },
+
+  "podcasts": {
+    "enabled": true,
+    "search_terms": ["NBA podcast", "Valorant esports podcast", "true crime podcast", "technology news podcast"],
+    "max_duration_minutes": 180,
+    "items_per_digest": 1
+  },
+
+  "exclude_keywords": [
+    "election results",
+    "senate vote",
+    "impeachment",
+    "presidential debate",
+    "partisan"
+  ],
+
+  "clickbait_phrases": [
+    "you won't believe", "won't believe", "gone wrong", "gone sexual",
+    "shocking", "this is why", "number 5 will", "goes viral", "insane moment",
+    "you need to see this", "must watch", "broke the internet"
+  ],
+
+  "dashboard_url": "https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPO-NAME/"
+}
