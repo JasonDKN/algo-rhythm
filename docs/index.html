@@ -3,241 +3,323 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily Mix — Personal Digest</title>
+<title>Daily Mix - Personal Digest</title>
 <style>
   :root {
-    --bg: #1B2430; --bg-panel: #212C3B; --ink: #EDEFF2; --ink-dim: #9AA6B5;
-    --amber: #E8A33D; --teal: #4C8C8B; --line: #34435A; --new-bg: #2A3446;
+    --bg: #171923; --bg-panel: #1F2233; --ink: #F5F3FF; --ink-dim: #A3A8C3;
+    --line: #33374F; --purple: #C084FC; --pink: #F472B6; --amber: #FBBF24;
   }
   * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font-family:'IBM Plex Sans',-apple-system,Segoe UI,sans-serif; }
-  .mono { font-family:'IBM Plex Mono','Courier New',monospace; }
-  header { padding:36px 32px 24px; border-bottom:2px dashed var(--line); }
-  .eyebrow { font-family:'IBM Plex Mono',monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); font-size:12px; margin-bottom:6px; }
-  h1 { font-family:'Space Grotesk','IBM Plex Sans',sans-serif; font-size:32px; margin:0 0 6px; letter-spacing:-.01em; }
-  .meta { color:var(--ink-dim); font-size:14px; font-family:'IBM Plex Mono',monospace; }
-  .summary-bar { display:flex; gap:24px; padding:20px 32px; flex-wrap:wrap; }
-  .summary-card { background:var(--bg-panel); border:1px solid var(--line); border-radius:4px; padding:14px 20px; min-width:140px; }
-  .summary-card .num { font-family:'Space Grotesk',sans-serif; font-size:26px; color:var(--amber); }
-  .summary-card .lbl { font-size:12px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.08em; }
-  main { padding:0 32px 48px; }
-  table { width:100%; border-collapse:collapse; margin-top:12px; }
-  thead th { text-align:left; font-family:'IBM Plex Mono',monospace; text-transform:uppercase; font-size:11px; letter-spacing:.08em; color:var(--ink-dim); padding:10px 12px; border-bottom:2px solid var(--line); }
-  tbody td { padding:14px 12px; border-bottom:1px solid var(--line); vertical-align:top; font-size:14px; }
-  tbody tr.is-new { background:var(--new-bg); }
-  .stub { font-family:'IBM Plex Mono',monospace; color:var(--ink-dim); font-size:12px; }
-  .title-cell a { color:var(--ink); font-weight:600; text-decoration:none; }
-  .title-cell a:hover { color:var(--amber); text-decoration:underline; }
-  .meta-line { margin-top:4px; font-size:12px; color:var(--ink-dim); }
-  .stamp { display:inline-block; margin-left:8px; padding:1px 8px; border:1.5px solid var(--amber); color:var(--amber); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; border-radius:3px; transform:rotate(-3deg); }
-  .chip { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--teal); border:1px solid var(--teal); border-radius:3px; padding:1px 6px; }
-  .feedback { white-space:nowrap; }
-  .fb { display:inline-block; text-decoration:none; font-size:18px; padding:4px 8px; border-radius:4px; }
-  .fb.like:hover { background: rgba(232,163,61,0.15); }
-  .fb.dislike:hover { background: rgba(76,140,139,0.15); }
-  footer { padding:24px 32px 40px; color:var(--ink-dim); font-size:12px; font-family:'IBM Plex Mono',monospace; }
-  @media (max-width:720px) {
-    thead { display:none; }
-    tbody tr { display:block; margin-bottom:16px; border:1px solid var(--line); border-radius:4px; }
-    tbody td { display:block; border-bottom:none; padding:6px 14px; }
+  body {
+    margin:0; background: radial-gradient(circle at top left, #241F3D, var(--bg) 55%);
+    color:var(--ink); font-family:'IBM Plex Sans',-apple-system,Segoe UI,sans-serif;
   }
+  .mono { font-family:'IBM Plex Mono',monospace; }
+  header {
+    padding:40px 32px 28px;
+    background: linear-gradient(120deg, #7C3AED33, #EC489933, #F59E0B22);
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow { font-family:'IBM Plex Mono',monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); font-size:12px; margin-bottom:6px; }
+  h1 { font-family:'Space Grotesk','IBM Plex Sans',sans-serif; font-size:36px; margin:0 0 6px; background: linear-gradient(90deg, var(--purple), var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .meta { color:var(--ink-dim); font-size:14px; font-family:'IBM Plex Mono',monospace; }
+  .summary-bar { display:flex; gap:18px; padding:22px 32px; flex-wrap:wrap; }
+  .summary-card { background:var(--bg-panel); border:1px solid var(--line); border-radius:10px; padding:14px 20px; min-width:130px; }
+  .summary-card .num { font-family:'Space Grotesk',sans-serif; font-size:26px; color:var(--amber); }
+  .summary-card .lbl { font-size:11px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.08em; }
+
+  section { margin: 8px 32px 32px; }
+  .section-title { font-family:'Space Grotesk',sans-serif; font-size:18px; margin-bottom:14px; }
+
+  .phrase-section { background: linear-gradient(120deg,#312244,#1F2233); border:1px solid var(--line); border-radius:14px; padding:22px 24px; }
+  .phrase-english { font-size:20px; font-weight:600; margin: 0 0 16px; }
+  .phrase-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap:14px; }
+  .phrase-card { background:var(--bg-panel); border:1px solid var(--line); border-radius:10px; padding:14px; text-align:center; }
+  .phrase-flag { font-size:26px; }
+  .phrase-lang { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-dim); margin:6px 0 4px; }
+  .phrase-text { font-size:15px; font-weight:600; }
+
+  .discovery-section { background: linear-gradient(120deg,#3D2A17,#1F2233); border:1px solid var(--line); border-radius:14px; padding:22px 24px; }
+  .discovery-question { font-size:17px; margin: 0 0 16px; }
+  .discovery-btn { display:inline-block; background: var(--amber); color:#1F1300; font-weight:700; padding:10px 18px; border-radius:8px; text-decoration:none; }
+
+  .card-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:20px; padding: 0 32px 48px; }
+  .card { background:var(--bg-panel); border:1px solid var(--line); border-top: 4px solid var(--accent); border-radius:12px; overflow:hidden; display:flex; flex-direction:column; }
+  .card-media { width:100%; height:150px; overflow:hidden; }
+  .card-media img { width:100%; height:100%; object-fit:cover; display:block; }
+  .card-media.placeholder { display:flex; align-items:center; justify-content:center; }
+  .placeholder-emoji { font-size:48px; }
+  .card-body { padding:16px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .card-topic-row { display:flex; align-items:center; gap:8px; }
+  .topic-chip { font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:.04em; }
+  .stamp { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--amber); border:1px solid var(--amber); padding:1px 6px; border-radius:3px; }
+  .card-title { color:var(--ink); font-weight:700; text-decoration:none; font-size:15px; line-height:1.35; }
+  .card-title:hover { color: var(--pink); }
+  .card-meta { font-size:12px; color:var(--ink-dim); }
+  .card-feedback { margin-top:auto; padding-top:6px; }
+  .fb { display:inline-block; text-decoration:none; font-size:20px; padding:4px 10px 4px 0; }
+
+  .empty { padding: 0 32px; color: var(--ink-dim); }
+  footer { padding:24px 32px 40px; color:var(--ink-dim); font-size:12px; font-family:'IBM Plex Mono',monospace; }
+  footer a { color: var(--pink); }
 </style>
 </head>
 <body>
 <header>
   <div class="eyebrow">Personal Feed &middot; Updated Daily</div>
   <h1>Daily Mix</h1>
-  <div class="meta">Generated 2026-07-17 17:12 UTC &middot; there</div>
+  <div class="meta">Generated 2026-07-17 18:07 UTC &middot; there</div>
 </header>
 
 <div class="summary-bar">
   <div class="summary-card"><div class="num">13</div><div class="lbl">Items today</div></div>
-  <div class="summary-card"><div class="num">13</div><div class="lbl">New today</div></div>
-  <div class="summary-card"><div class="num">6</div><div class="lbl">Topics tracked</div></div>
+  <div class="summary-card"><div class="num">2</div><div class="lbl">New today</div></div>
+  <div class="summary-card"><div class="num">6</div><div class="lbl">Core topics</div></div>
+  <div class="summary-card"><div class="num">0</div><div class="lbl">Discovered topics</div></div>
 </div>
 
-<main>
-<table>
-  <thead><tr><th>#</th><th>Item</th><th>Topic</th><th>Feedback</th></tr></thead>
-  <tbody>
-    
-        <tr class="is-new">
-          <td class="stub">#0001</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMimgFBVV95cUxOSGY3SXRUVnRkVUItM3ZCblo1Y2JnNjdDUFBWbl9XRElOV0F1NE92TDd1b043eXRKdTVfeUlMdEU5Z1IyWDlVSjlMX2hvYmlzT3hQcWd6dWNxZFYzTlNEQ1Y0XzZ2VHdxelIzNUxUeFdaX2xmTjVhVDVPUG5lOGF3VjI4TXZqRUZ4YWVZZEE0RlVsSlg4Rk1JVGdB?oc=5" target="_blank" rel="noopener">BTS Invite Fans to Look Beyond the Spotlight in ‘Normal’ Video - Rolling Stone</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">Rolling Stone &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>Bts</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+BTS+Invite+Fans+to+Look+Beyond+the+Spotlight+in+%E2%80%98Normal%E2%80%99+Video+-+Rolling+Stone&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-3VjI4TXZqRUZ4YWVZZEE0RlVsSlg4Rk1JVGdBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22bts%22%2C+%22creator%22%3A+%22Rolling+Stone%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+BTS+Invite+Fans+to+Look+Beyond+the+Spotlight+in+%E2%80%98Normal%E2%80%99+Video+-+Rolling+Stone%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMimgFBVV95cUxOSGY3SXRUVnRkVUItM3ZCblo1Y2JnNjdDUFBWbl9XRElOV0F1NE92TDd1b043eXRKdTVfeUlMdEU5Z1IyWDlVSjlMX2hvYmlzT3hQcWd6dWNxZFYzTlNEQ1Y0XzZ2VHdxelIzNUxUeFdaX2xmTjVhVDVPUG5lOGF3VjI4TXZqRUZ4YWVZZEE0RlVsSlg4Rk1JVGdB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+BTS+Invite+Fans+to+Look+Beyond+the+Spotlight+in+%E2%80%98Normal%E2%80%99+Video+-+Rolling+Stone&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-3VjI4TXZqRUZ4YWVZZEE0RlVsSlg4Rk1JVGdBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22bts%22%2C+%22creator%22%3A+%22Rolling+Stone%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+BTS+Invite+Fans+to+Look+Beyond+the+Spotlight+in+%E2%80%98Normal%E2%80%99+Video+-+Rolling+Stone%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMimgFBVV95cUxOSGY3SXRUVnRkVUItM3ZCblo1Y2JnNjdDUFBWbl9XRElOV0F1NE92TDd1b043eXRKdTVfeUlMdEU5Z1IyWDlVSjlMX2hvYmlzT3hQcWd6dWNxZFYzTlNEQ1Y0XzZ2VHdxelIzNUxUeFdaX2xmTjVhVDVPUG5lOGF3VjI4TXZqRUZ4YWVZZEE0RlVsSlg4Rk1JVGdB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0002</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMiggFBVV95cUxQOXhTNUQxU0JQWC1xM2V3MHlqX2xYTGJhWHhqVWV0ZHFhak9lSml6a1gzQXFaRmxYc3ZPeFBZRVNQeHZtTXd2SDZOOHFFenMwd1lGX1Y5NTNSZzZ1QkFhMV9WRjBLTDZxNlVQTFZ1bEExVFExbzdKN3k2UGphNjRTSXNB?oc=5" target="_blank" rel="noopener">BTS Let Off Steam After a Big Night In ‘NORMAL’ Music Video: Watch - Billboard</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">Billboard &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>Bts</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+BTS+Let+Off+Steam+After+a+Big+Night+In+%E2%80%98NORMAL%E2%80%99+Music+Video%3A+Watch+-+Billboard&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-xNlVQTFZ1bEExVFExbzdKN3k2UGphNjRTSXNBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22bts%22%2C+%22creator%22%3A+%22Billboard%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+BTS+Let+Off+Steam+After+a+Big+Night+In+%E2%80%98NORMAL%E2%80%99+Music+Video%3A+Watch+-+Billboard%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiggFBVV95cUxQOXhTNUQxU0JQWC1xM2V3MHlqX2xYTGJhWHhqVWV0ZHFhak9lSml6a1gzQXFaRmxYc3ZPeFBZRVNQeHZtTXd2SDZOOHFFenMwd1lGX1Y5NTNSZzZ1QkFhMV9WRjBLTDZxNlVQTFZ1bEExVFExbzdKN3k2UGphNjRTSXNB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+BTS+Let+Off+Steam+After+a+Big+Night+In+%E2%80%98NORMAL%E2%80%99+Music+Video%3A+Watch+-+Billboard&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-xNlVQTFZ1bEExVFExbzdKN3k2UGphNjRTSXNBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22bts%22%2C+%22creator%22%3A+%22Billboard%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+BTS+Let+Off+Steam+After+a+Big+Night+In+%E2%80%98NORMAL%E2%80%99+Music+Video%3A+Watch+-+Billboard%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiggFBVV95cUxQOXhTNUQxU0JQWC1xM2V3MHlqX2xYTGJhWHhqVWV0ZHFhak9lSml6a1gzQXFaRmxYc3ZPeFBZRVNQeHZtTXd2SDZOOHFFenMwd1lGX1Y5NTNSZzZ1QkFhMV9WRjBLTDZxNlVQTFZ1bEExVFExbzdKN3k2UGphNjRTSXNB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0003</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMirgFBVV95cUxPYmNfamNVbTdidmxKNmM1NzM0Z2E4amJQdVJ3S1lEaEhDQktwMlF3TW9hUmZSUG9RNjFsaWl2VU1qNGwzMGVtY01Sc2FZU1ZSSVY5Sm1UZ3B2cFJFTVBTVmdZQjVaQmFlaGxQMU95akwzMG5TdEl6SWRVaFhDQmdnTmxXYzJGQU1aYU8tb3EwOGphZ2tGNDFEX0FBTnppNmRUT1FMMndFSHNFYWY5Zmc?oc=5" target="_blank" rel="noopener">2026 NBA buzz: Latest summer league, free agency, trade updates - ESPN</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">ESPN &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>Nba</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+2026+NBA+buzz%3A+Latest+summer+league%2C+free+agency%2C+trade+updates+-+ESPN&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-tGNDFEX0FBTnppNmRUT1FMMndFSHNFYWY5Zmcoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22ESPN%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+2026+NBA+buzz%3A+Latest+summer+league%2C+free+agency%2C+trade+updates+-+ESPN%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMirgFBVV95cUxPYmNfamNVbTdidmxKNmM1NzM0Z2E4amJQdVJ3S1lEaEhDQktwMlF3TW9hUmZSUG9RNjFsaWl2VU1qNGwzMGVtY01Sc2FZU1ZSSVY5Sm1UZ3B2cFJFTVBTVmdZQjVaQmFlaGxQMU95akwzMG5TdEl6SWRVaFhDQmdnTmxXYzJGQU1aYU8tb3EwOGphZ2tGNDFEX0FBTnppNmRUT1FMMndFSHNFYWY5Zmc%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+2026+NBA+buzz%3A+Latest+summer+league%2C+free+agency%2C+trade+updates+-+ESPN&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-tGNDFEX0FBTnppNmRUT1FMMndFSHNFYWY5Zmcoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22ESPN%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+2026+NBA+buzz%3A+Latest+summer+league%2C+free+agency%2C+trade+updates+-+ESPN%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMirgFBVV95cUxPYmNfamNVbTdidmxKNmM1NzM0Z2E4amJQdVJ3S1lEaEhDQktwMlF3TW9hUmZSUG9RNjFsaWl2VU1qNGwzMGVtY01Sc2FZU1ZSSVY5Sm1UZ3B2cFJFTVBTVmdZQjVaQmFlaGxQMU95akwzMG5TdEl6SWRVaFhDQmdnTmxXYzJGQU1aYU8tb3EwOGphZ2tGNDFEX0FBTnppNmRUT1FMMndFSHNFYWY5Zmc%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0004</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxNUEhSWG5LQ3hfV1dYSzJpbkJLMTFHa084R3YyZW45V212TFhkLUkwc0JMNWpKVkE0WnJ6UmswVDdOdEhUYi0ybHNFZ0JKVFZwMEdhczVNajVOTXlvbGxGcW5BSmkwemU3NG5DM0xURkRqRVp4bWJ5TmNNak5CYnBZdw?oc=5" target="_blank" rel="noopener">Lakers Announce Albert as Jersey Patch Partner - NBA.com</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">NBA.com &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>Nba</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Lakers+Announce+Albert+as+Jersey+Patch+Partner+-+NBA.com&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-mU3NG5DM0xURkRqRVp4bWJ5TmNNak5CYnBZdwoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22NBA.com%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Lakers+Announce+Albert+as+Jersey+Patch+Partner+-+NBA.com%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMigAFBVV95cUxNUEhSWG5LQ3hfV1dYSzJpbkJLMTFHa084R3YyZW45V212TFhkLUkwc0JMNWpKVkE0WnJ6UmswVDdOdEhUYi0ybHNFZ0JKVFZwMEdhczVNajVOTXlvbGxGcW5BSmkwemU3NG5DM0xURkRqRVp4bWJ5TmNNak5CYnBZdw%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Lakers+Announce+Albert+as+Jersey+Patch+Partner+-+NBA.com&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-mU3NG5DM0xURkRqRVp4bWJ5TmNNak5CYnBZdwoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22NBA.com%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Lakers+Announce+Albert+as+Jersey+Patch+Partner+-+NBA.com%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMigAFBVV95cUxNUEhSWG5LQ3hfV1dYSzJpbkJLMTFHa084R3YyZW45V212TFhkLUkwc0JMNWpKVkE0WnJ6UmswVDdOdEhUYi0ybHNFZ0JKVFZwMEdhczVNajVOTXlvbGxGcW5BSmkwemU3NG5DM0xURkRqRVp4bWJ5TmNNak5CYnBZdw%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0005</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMiggFBVV95cUxPc0Q4VUZDdEFlUEpGMnlvRVNPS1NDeEwwamQ1SnJqdHE2SnZZNmVUT0FrU3MyOVY2MWlPWVNRSE5NSjlxUWRMRHhIWnVmNDRkRml0ZlFyaXJIZXZkaUZBMVZjOGUzMjRVVG04ckVfLW9lOFJ1MS1NLVpjQWp1MlQyakZ3?oc=5" target="_blank" rel="noopener">Who fell out of the NFL top-10 positional rankings in 2026? - ESPN</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">ESPN &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>Nfl</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Who+fell+out+of+the+NFL+top-10+positional+rankings+in+2026%3F+-+ESPN&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-VVG04ckVfLW9lOFJ1MS1NLVpjQWp1MlQyakZ3oc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nfl%22%2C+%22creator%22%3A+%22ESPN%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Who+fell+out+of+the+NFL+top-10+positional+rankings+in+2026%3F+-+ESPN%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiggFBVV95cUxPc0Q4VUZDdEFlUEpGMnlvRVNPS1NDeEwwamQ1SnJqdHE2SnZZNmVUT0FrU3MyOVY2MWlPWVNRSE5NSjlxUWRMRHhIWnVmNDRkRml0ZlFyaXJIZXZkaUZBMVZjOGUzMjRVVG04ckVfLW9lOFJ1MS1NLVpjQWp1MlQyakZ3%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Who+fell+out+of+the+NFL+top-10+positional+rankings+in+2026%3F+-+ESPN&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-VVG04ckVfLW9lOFJ1MS1NLVpjQWp1MlQyakZ3oc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nfl%22%2C+%22creator%22%3A+%22ESPN%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Who+fell+out+of+the+NFL+top-10+positional+rankings+in+2026%3F+-+ESPN%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiggFBVV95cUxPc0Q4VUZDdEFlUEpGMnlvRVNPS1NDeEwwamQ1SnJqdHE2SnZZNmVUT0FrU3MyOVY2MWlPWVNRSE5NSjlxUWRMRHhIWnVmNDRkRml0ZlFyaXJIZXZkaUZBMVZjOGUzMjRVVG04ckVfLW9lOFJ1MS1NLVpjQWp1MlQyakZ3%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0006</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTFBicUhlaW1KY3dOdVNNTko5VlZienZHVVhYem5pUURGemtvTGR1LWNROEdDZE5PalJmTncxRkZOSHhUMEp3SUxTZGVIMnVmcnBVVWRfS3JSc1V0X0RTUllYQzQ4QkVpNEN1NWRWOThhN0h4V3ViTUs5M3NpeDJWWFU?oc=5" target="_blank" rel="noopener">Biggest remaining roster issue for every AFC team - NFL.com</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">NFL.com &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>Nfl</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Biggest+remaining+roster+issue+for+every+AFC+team+-+NFL.com&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-VpNEN1NWRWOThhN0h4V3ViTUs5M3NpeDJWWFUoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nfl%22%2C+%22creator%22%3A+%22NFL.com%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Biggest+remaining+roster+issue+for+every+AFC+team+-+NFL.com%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMif0FVX3lxTFBicUhlaW1KY3dOdVNNTko5VlZienZHVVhYem5pUURGemtvTGR1LWNROEdDZE5PalJmTncxRkZOSHhUMEp3SUxTZGVIMnVmcnBVVWRfS3JSc1V0X0RTUllYQzQ4QkVpNEN1NWRWOThhN0h4V3ViTUs5M3NpeDJWWFU%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Biggest+remaining+roster+issue+for+every+AFC+team+-+NFL.com&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-VpNEN1NWRWOThhN0h4V3ViTUs5M3NpeDJWWFUoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nfl%22%2C+%22creator%22%3A+%22NFL.com%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Biggest+remaining+roster+issue+for+every+AFC+team+-+NFL.com%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMif0FVX3lxTFBicUhlaW1KY3dOdVNNTko5VlZienZHVVhYem5pUURGemtvTGR1LWNROEdDZE5PalJmTncxRkZOSHhUMEp3SUxTZGVIMnVmcnBVVWRfS3JSc1V0X0RTUllYQzQ4QkVpNEN1NWRWOThhN0h4V3ViTUs5M3NpeDJWWFU%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0007</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMid0FVX3lxTE5sUXUtZmpKb0NMc1JkalhRY19oemY4NzE3WGdBUFZnRXppTGJLYmlxS0dEakhfX1F3Q2c3QXM2NzlkMWF4WWJZUHpjdmFFRkZOcGJHUzZ5MUZRRkcxRk1NMldDb3lpdTdHOHlkMFo5amF3cnV2cEVr?oc=5" target="_blank" rel="noopener">Syrup Is a ‘Destroyer of Worlds’ Among Gamers. Now, He Plays Smash Bros. for the Orange - Syracuse University Today</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">Syracuse University Today &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>Smash</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Syrup+Is+a+%E2%80%98Destroyer+of+Worlds%E2%80%99+Among+Gamers.+Now%2C+He+Plays+Smash+Bros.+for+the&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-xRk1NMldDb3lpdTdHOHlkMFo5amF3cnV2cEVroc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22smash%22%2C+%22creator%22%3A+%22Syracuse+University+Today%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Syrup+Is+a+%E2%80%98Destroyer+of+Worlds%E2%80%99+Among+Gamers.+Now%2C+He+Plays+Smash+Bros.+for+the+Orange+-+Syracuse+University+Today%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMid0FVX3lxTE5sUXUtZmpKb0NMc1JkalhRY19oemY4NzE3WGdBUFZnRXppTGJLYmlxS0dEakhfX1F3Q2c3QXM2NzlkMWF4WWJZUHpjdmFFRkZOcGJHUzZ5MUZRRkcxRk1NMldDb3lpdTdHOHlkMFo5amF3cnV2cEVr%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Syrup+Is+a+%E2%80%98Destroyer+of+Worlds%E2%80%99+Among+Gamers.+Now%2C+He+Plays+Smash+Bros.+for+the&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-xRk1NMldDb3lpdTdHOHlkMFo5amF3cnV2cEVroc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22smash%22%2C+%22creator%22%3A+%22Syracuse+University+Today%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Syrup+Is+a+%E2%80%98Destroyer+of+Worlds%E2%80%99+Among+Gamers.+Now%2C+He+Plays+Smash+Bros.+for+the+Orange+-+Syracuse+University+Today%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMid0FVX3lxTE5sUXUtZmpKb0NMc1JkalhRY19oemY4NzE3WGdBUFZnRXppTGJLYmlxS0dEakhfX1F3Q2c3QXM2NzlkMWF4WWJZUHpjdmFFRkZOcGJHUzZ5MUZRRkcxRk1NMldDb3lpdTdHOHlkMFo5amF3cnV2cEVr%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0008</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE5BNVJQNlNoLVdtUGtfVmx6RVg2UVN3TW5LM3NOVngxNGV4M0dJb0F6eXo5VnJqOE1sRlI1NXB3TkZPN1JvNEEyWmxCczFXRVlvT2t3V3VQQUJLblFYN1hWYjlzWDJsNy1F?oc=5" target="_blank" rel="noopener">WIU Digital Rec Center Launches Weekly Super Smash Bros. Ultimate Events - Western Illinois University</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">Western Illinois University &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>Smash</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+WIU+Digital+Rec+Center+Launches+Weekly+Super+Smash+Bros.+Ultimate+Events+-+Weste&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-XRVlvT2t3V3VQQUJLblFYN1hWYjlzWDJsNy1Foc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22smash%22%2C+%22creator%22%3A+%22Western+Illinois+University%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+WIU+Digital+Rec+Center+Launches+Weekly+Super+Smash+Bros.+Ultimate+Events+-+Western+Illinois+University%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiaEFVX3lxTE5BNVJQNlNoLVdtUGtfVmx6RVg2UVN3TW5LM3NOVngxNGV4M0dJb0F6eXo5VnJqOE1sRlI1NXB3TkZPN1JvNEEyWmxCczFXRVlvT2t3V3VQQUJLblFYN1hWYjlzWDJsNy1F%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+WIU+Digital+Rec+Center+Launches+Weekly+Super+Smash+Bros.+Ultimate+Events+-+Weste&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-XRVlvT2t3V3VQQUJLblFYN1hWYjlzWDJsNy1Foc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22smash%22%2C+%22creator%22%3A+%22Western+Illinois+University%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+WIU+Digital+Rec+Center+Launches+Weekly+Super+Smash+Bros.+Ultimate+Events+-+Western+Illinois+University%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiaEFVX3lxTE5BNVJQNlNoLVdtUGtfVmx6RVg2UVN3TW5LM3NOVngxNGV4M0dJb0F6eXo5VnJqOE1sRlI1NXB3TkZPN1JvNEEyWmxCczFXRVlvT2t3V3VQQUJLblFYN1hWYjlzWDJsNy1F%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0009</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMiakFVX3lxTE5WRW1jZWRubnRUMW9YM2l6QXJSOGxhTGlzd3dLWlJiYXUxVFJOM2tYVmtXTW1pMGpSMUhSR285U0dGc0FJOFRoT05XZHpieF9ueFl3azRDMVZwYlM3RUczb3N0RTBLbV9FNHc?oc=5" target="_blank" rel="noopener">NOVA VS JDG - VALORANT Esports | Schedule</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">VALORANT Esports | Schedule &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>Valorant</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+NOVA+VS+JDG+-+VALORANT+Esports+%7C+Schedule&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-9ueFl3azRDMVZwYlM3RUczb3N0RTBLbV9FNHcoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22valorant%22%2C+%22creator%22%3A+%22VALORANT+Esports+%7C+Schedule%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+NOVA+VS+JDG+-+VALORANT+Esports+%7C+Schedule%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiakFVX3lxTE5WRW1jZWRubnRUMW9YM2l6QXJSOGxhTGlzd3dLWlJiYXUxVFJOM2tYVmtXTW1pMGpSMUhSR285U0dGc0FJOFRoT05XZHpieF9ueFl3azRDMVZwYlM3RUczb3N0RTBLbV9FNHc%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+NOVA+VS+JDG+-+VALORANT+Esports+%7C+Schedule&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-9ueFl3azRDMVZwYlM3RUczb3N0RTBLbV9FNHcoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22valorant%22%2C+%22creator%22%3A+%22VALORANT+Esports+%7C+Schedule%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+NOVA+VS+JDG+-+VALORANT+Esports+%7C+Schedule%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiakFVX3lxTE5WRW1jZWRubnRUMW9YM2l6QXJSOGxhTGlzd3dLWlJiYXUxVFJOM2tYVmtXTW1pMGpSMUhSR285U0dGc0FJOFRoT05XZHpieF9ueFl3azRDMVZwYlM3RUczb3N0RTBLbV9FNHc%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0010</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMiekFVX3lxTE00ZE5MSHYxR2I1Z1l0ZWxGRS1mQWhEWm8tdFlLeURSOVhZb1lzdTJRS3d2NTNGM0E2SzBlRS1qRElOUFlpSmFFUzJTc1ljTDRLTldqTjlCeTJ6RE91UHdSbjVWc0hmQ3cwSk41Q0xiV0hlWnlRTmxWWlJB?oc=5" target="_blank" rel="noopener">VALORANT Masters London 2026 - Valorant - Viewership, Overview, Prize Pool - Esports Charts</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">Esports Charts &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>Valorant</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+VALORANT+Masters+London+2026+-+Valorant+-+Viewership%2C+Overview%2C+Prize+Pool+-+Esp&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-SbjVWc0hmQ3cwSk41Q0xiV0hlWnlRTmxWWlJBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22valorant%22%2C+%22creator%22%3A+%22Esports+Charts%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+VALORANT+Masters+London+2026+-+Valorant+-+Viewership%2C+Overview%2C+Prize+Pool+-+Esports+Charts%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiekFVX3lxTE00ZE5MSHYxR2I1Z1l0ZWxGRS1mQWhEWm8tdFlLeURSOVhZb1lzdTJRS3d2NTNGM0E2SzBlRS1qRElOUFlpSmFFUzJTc1ljTDRLTldqTjlCeTJ6RE91UHdSbjVWc0hmQ3cwSk41Q0xiV0hlWnlRTmxWWlJB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+VALORANT+Masters+London+2026+-+Valorant+-+Viewership%2C+Overview%2C+Prize+Pool+-+Esp&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-SbjVWc0hmQ3cwSk41Q0xiV0hlWnlRTmxWWlJBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22valorant%22%2C+%22creator%22%3A+%22Esports+Charts%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+VALORANT+Masters+London+2026+-+Valorant+-+Viewership%2C+Overview%2C+Prize+Pool+-+Esports+Charts%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiekFVX3lxTE00ZE5MSHYxR2I1Z1l0ZWxGRS1mQWhEWm8tdFlLeURSOVhZb1lzdTJRS3d2NTNGM0E2SzBlRS1qRElOUFlpSmFFUzJTc1ljTDRLTldqTjlCeTJ6RE91UHdSbjVWc0hmQ3cwSk41Q0xiV0hlWnlRTmxWWlJB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0011</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxQM2ttMFRUekdHdWRSYzZRM0lvd2ZiYUhHMmhLNmctSzFZOG5hTEtWUnMxRTZIVks4bnIyY3Fpd0pKN2dBZ0tOT25LNUU1RGtyZkJHNVdHYU42dzJCLU00MWhNbTVJNE0xZ3ZneE5BVm81UGdKb2s1WDNra1Q5TW41c3RGeFhub2dXSlVKcm13Zk5HQnBJMEFzUlZETGdEb2_SAaQBQVVfeXFMTWNtUGhJQklCVUlJMUhPbGxOUzNGa3ZQUzFMRjZ2QXNRYjR2MXBFNFcyN0NVdjlJSlpWaEhWQTNxUnRDQ1dUT19RUjE1R2hkdjZiQ3F5ZjB3WEZ1ZVQxNzdkcDdObFAzd3dxVTlYVTREbkJoTTZfWjllN3lmcmVQSUhjUEgzWGl5UGc1SG8wQnI5cDUxMWZ6VGd3dG9aTTVRUm1HQ3I?oc=5" target="_blank" rel="noopener">Apple regains top spot as world’s most valuable company - Al Jazeera</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">Al Jazeera &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>World News</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Apple+regains+top+spot+as+world%E2%80%99s+most+valuable+company+-+Al+Jazeera&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-c1SG8wQnI5cDUxMWZ6VGd3dG9aTTVRUm1HQ3Ioc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22world_news%22%2C+%22creator%22%3A+%22Al+Jazeera%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Apple+regains+top+spot+as+world%E2%80%99s+most+valuable+company+-+Al+Jazeera%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMinwFBVV95cUxQM2ttMFRUekdHdWRSYzZRM0lvd2ZiYUhHMmhLNmctSzFZOG5hTEtWUnMxRTZIVks4bnIyY3Fpd0pKN2dBZ0tOT25LNUU1RGtyZkJHNVdHYU42dzJCLU00MWhNbTVJNE0xZ3ZneE5BVm81UGdKb2s1WDNra1Q5TW41c3RGeFhub2dXSlVKcm13Zk5HQnBJMEFzUlZETGdEb2_SAaQBQVVfeXFMTWNtUGhJQklCVUlJMUhPbGxOUzNGa3ZQUzFMRjZ2QXNRYjR2MXBFNFcyN0NVdjlJSlpWaEhWQTNxUnRDQ1dUT19RUjE1R2hkdjZiQ3F5ZjB3WEZ1ZVQxNzdkcDdObFAzd3dxVTlYVTREbkJoTTZfWjllN3lmcmVQSUhjUEgzWGl5UGc1SG8wQnI5cDUxMWZ6VGd3dG9aTTVRUm1HQ3I%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Apple+regains+top+spot+as+world%E2%80%99s+most+valuable+company+-+Al+Jazeera&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-c1SG8wQnI5cDUxMWZ6VGd3dG9aTTVRUm1HQ3Ioc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22world_news%22%2C+%22creator%22%3A+%22Al+Jazeera%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Apple+regains+top+spot+as+world%E2%80%99s+most+valuable+company+-+Al+Jazeera%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMinwFBVV95cUxQM2ttMFRUekdHdWRSYzZRM0lvd2ZiYUhHMmhLNmctSzFZOG5hTEtWUnMxRTZIVks4bnIyY3Fpd0pKN2dBZ0tOT25LNUU1RGtyZkJHNVdHYU42dzJCLU00MWhNbTVJNE0xZ3ZneE5BVm81UGdKb2s1WDNra1Q5TW41c3RGeFhub2dXSlVKcm13Zk5HQnBJMEFzUlZETGdEb2_SAaQBQVVfeXFMTWNtUGhJQklCVUlJMUhPbGxOUzNGa3ZQUzFMRjZ2QXNRYjR2MXBFNFcyN0NVdjlJSlpWaEhWQTNxUnRDQ1dUT19RUjE1R2hkdjZiQ3F5ZjB3WEZ1ZVQxNzdkcDdObFAzd3dxVTlYVTREbkJoTTZfWjllN3lmcmVQSUhjUEgzWGl5UGc1SG8wQnI5cDUxMWZ6VGd3dG9aTTVRUm1HQ3I%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0012</td>
-          <td class="title-cell">
-            <a href="https://news.google.com/rss/articles/CBMifkFVX3lxTFB3cDRtVWd6XzNSOFYybFpsemxYZ05OUWd3Mkx6LXFGcTZZUmpRZEp4TE9UWVBJaG9mLXVaNXRQekx6RFJXckFNYmRNOEdyX0o3TVRHOFNvUlg3UVVPcWRsT1lfMWNoai1nWGx4dEJaelRrX0h2bGtXY29WYk82Zw?oc=5" target="_blank" rel="noopener">Antimicrobial resistance - World Health Organization (WHO)</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">World Health Organization (WHO) &middot; <span class="chip">Article</span></div>
-          </td>
-          <td>World News</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Antimicrobial+resistance+-+World+Health+Organization+%28WHO%29&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-WNoai1nWGx4dEJaelRrX0h2bGtXY29WYk82Zwoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22world_news%22%2C+%22creator%22%3A+%22World+Health+Organization+%28WHO%29%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Antimicrobial+resistance+-+World+Health+Organization+%28WHO%29%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMifkFVX3lxTFB3cDRtVWd6XzNSOFYybFpsemxYZ05OUWd3Mkx6LXFGcTZZUmpRZEp4TE9UWVBJaG9mLXVaNXRQekx6RFJXckFNYmRNOEdyX0o3TVRHOFNvUlg3UVVPcWRsT1lfMWNoai1nWGx4dEJaelRrX0h2bGtXY29WYk82Zw%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Antimicrobial+resistance+-+World+Health+Organization+%28WHO%29&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-WNoai1nWGx4dEJaelRrX0h2bGtXY29WYk82Zwoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22world_news%22%2C+%22creator%22%3A+%22World+Health+Organization+%28WHO%29%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Antimicrobial+resistance+-+World+Health+Organization+%28WHO%29%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMifkFVX3lxTFB3cDRtVWd6XzNSOFYybFpsemxYZ05OUWd3Mkx6LXFGcTZZUmpRZEp4TE9UWVBJaG9mLXVaNXRQekx6RFJXckFNYmRNOEdyX0o3TVRHOFNvUlg3UVVPcWRsT1lfMWNoai1nWGx4dEJaelRrX0h2bGtXY29WYk82Zw%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-        <tr class="is-new">
-          <td class="stub">#0013</td>
-          <td class="title-cell">
-            <a href="https://podcasts.apple.com/us/podcast/the-ringer-nba-show/id1109271715?uo=4" target="_blank" rel="noopener">The Ringer NBA Show</a>
-            <span class='stamp'>NEW</span>
-            <div class="meta-line">The Ringer &middot; <span class="chip">Podcast</span></div>
-          </td>
-          <td>Podcasts</td>
-          <td class="feedback">
-            <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+The+Ringer+NBA+Show&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22podcast-1109271715%22%2C+%22type%22%3A+%22podcast%22%2C+%22topic%22%3A+%22podcasts%22%2C+%22creator%22%3A+%22The+Ringer%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+The+Ringer+NBA+Show%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fpodcasts.apple.com%2Fus%2Fpodcast%2Fthe-ringer-nba-show%2Fid1109271715%3Fuo%3D4%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
-            <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+The+Ringer+NBA+Show&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22podcast-1109271715%22%2C+%22type%22%3A+%22podcast%22%2C+%22topic%22%3A+%22podcasts%22%2C+%22creator%22%3A+%22The+Ringer%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+The+Ringer+NBA+Show%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fpodcasts.apple.com%2Fus%2Fpodcast%2Fthe-ringer-nba-show%2Fid1109271715%3Fuo%3D4%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
-          </td>
-        </tr>
-  </tbody>
-</table>
-</main>
+
+    <section class="phrase-section">
+      <h2 class="section-title">🌍 Phrase of the Day</h2>
+      <p class="phrase-english">"I miss you"</p>
+      <div class="phrase-grid">
+      <div class="phrase-card">
+        <div class="phrase-flag">🇻🇳</div>
+        <div class="phrase-lang">Vietnamese</div>
+        <div class="phrase-text">Anh nhớ em</div>
+      </div>
+      <div class="phrase-card">
+        <div class="phrase-flag">🇰🇷</div>
+        <div class="phrase-lang">Korean</div>
+        <div class="phrase-text">여기 혼자 심심해 할 일도 없고 할 말도 없고</div>
+      </div>
+      <div class="phrase-card">
+        <div class="phrase-flag">🇫🇷</div>
+        <div class="phrase-lang">French</div>
+        <div class="phrase-text">Je veux lécher ta chatte serrée</div>
+      </div>
+      <div class="phrase-card">
+        <div class="phrase-flag">🇪🇸</div>
+        <div class="phrase-lang">Spanish</div>
+        <div class="phrase-text">Te echo de menos</div>
+      </div>
+      <div class="phrase-card">
+        <div class="phrase-flag">🇺🇦</div>
+        <div class="phrase-lang">Ukrainian</div>
+        <div class="phrase-text">Не хватає тебе</div>
+      </div></div>
+    </section>
+
+    <section class="discovery-section">
+      <h2 class="section-title">🧩 Get to Know You</h2>
+      <p class="discovery-question">If you had a free afternoon, what would you probably end up doing?</p>
+      <a class="discovery-btn" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%A7%A9+Daily+discovery+reply&amp;body=%3C%21--+daily-discovery%0A%7B%22kind%22%3A+%22daily-discovery%22%7D%0A--%3E%0A%2A%2AQuestion%3A%2A%2A+If+you+had+a+free+afternoon%2C+what+would+you+probably+end+up+doing%3F%0A%0A---%0A%0A%28type+your+answer+here%2C+then+submit%29&amp;labels=daily-discovery" target="_blank" rel="noopener">Answer this &rarr;</a>
+    </section>
+
+<section>
+  <h2 class="section-title">📱 Today's Mix</h2>
+  <div class="card-grid">
+    <div class="card" style="--accent: #C084FC">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #C084FC55, #C084FC22)'><span class='placeholder-emoji'>🎤</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#C084FC33; color:#C084FC">Bts</span>
+          
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMimgFBVV95cUxOSGY3SXRUVnRkVUItM3ZCblo1Y2JnNjdDUFBWbl9XRElOV0F1NE92TDd1b043eXRKdTVfeUlMdEU5Z1IyWDlVSjlMX2hvYmlzT3hQcWd6dWNxZFYzTlNEQ1Y0XzZ2VHdxelIzNUxUeFdaX2xmTjVhVDVPUG5lOGF3VjI4TXZqRUZ4YWVZZEE0RlVsSlg4Rk1JVGdB?oc=5" target="_blank" rel="noopener">BTS Invite Fans to Look Beyond the Spotlight in ‘Normal’ Video - Rolling Stone</a>
+        <div class="card-meta">Rolling Stone &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+BTS+Invite+Fans+to+Look+Beyond+the+Spotlight+in+%E2%80%98Normal%E2%80%99+Video+-+Rolling+Stone&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-3VjI4TXZqRUZ4YWVZZEE0RlVsSlg4Rk1JVGdBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22bts%22%2C+%22creator%22%3A+%22Rolling+Stone%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+BTS+Invite+Fans+to+Look+Beyond+the+Spotlight+in+%E2%80%98Normal%E2%80%99+Video+-+Rolling+Stone%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMimgFBVV95cUxOSGY3SXRUVnRkVUItM3ZCblo1Y2JnNjdDUFBWbl9XRElOV0F1NE92TDd1b043eXRKdTVfeUlMdEU5Z1IyWDlVSjlMX2hvYmlzT3hQcWd6dWNxZFYzTlNEQ1Y0XzZ2VHdxelIzNUxUeFdaX2xmTjVhVDVPUG5lOGF3VjI4TXZqRUZ4YWVZZEE0RlVsSlg4Rk1JVGdB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+BTS+Invite+Fans+to+Look+Beyond+the+Spotlight+in+%E2%80%98Normal%E2%80%99+Video+-+Rolling+Stone&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-3VjI4TXZqRUZ4YWVZZEE0RlVsSlg4Rk1JVGdBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22bts%22%2C+%22creator%22%3A+%22Rolling+Stone%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+BTS+Invite+Fans+to+Look+Beyond+the+Spotlight+in+%E2%80%98Normal%E2%80%99+Video+-+Rolling+Stone%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMimgFBVV95cUxOSGY3SXRUVnRkVUItM3ZCblo1Y2JnNjdDUFBWbl9XRElOV0F1NE92TDd1b043eXRKdTVfeUlMdEU5Z1IyWDlVSjlMX2hvYmlzT3hQcWd6dWNxZFYzTlNEQ1Y0XzZ2VHdxelIzNUxUeFdaX2xmTjVhVDVPUG5lOGF3VjI4TXZqRUZ4YWVZZEE0RlVsSlg4Rk1JVGdB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #C084FC">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #C084FC55, #C084FC22)'><span class='placeholder-emoji'>🎤</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#C084FC33; color:#C084FC">Bts</span>
+          
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMiggFBVV95cUxQOXhTNUQxU0JQWC1xM2V3MHlqX2xYTGJhWHhqVWV0ZHFhak9lSml6a1gzQXFaRmxYc3ZPeFBZRVNQeHZtTXd2SDZOOHFFenMwd1lGX1Y5NTNSZzZ1QkFhMV9WRjBLTDZxNlVQTFZ1bEExVFExbzdKN3k2UGphNjRTSXNB?oc=5" target="_blank" rel="noopener">BTS Let Off Steam After a Big Night In ‘NORMAL’ Music Video: Watch - Billboard</a>
+        <div class="card-meta">Billboard &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+BTS+Let+Off+Steam+After+a+Big+Night+In+%E2%80%98NORMAL%E2%80%99+Music+Video%3A+Watch+-+Billboard&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-xNlVQTFZ1bEExVFExbzdKN3k2UGphNjRTSXNBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22bts%22%2C+%22creator%22%3A+%22Billboard%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+BTS+Let+Off+Steam+After+a+Big+Night+In+%E2%80%98NORMAL%E2%80%99+Music+Video%3A+Watch+-+Billboard%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiggFBVV95cUxQOXhTNUQxU0JQWC1xM2V3MHlqX2xYTGJhWHhqVWV0ZHFhak9lSml6a1gzQXFaRmxYc3ZPeFBZRVNQeHZtTXd2SDZOOHFFenMwd1lGX1Y5NTNSZzZ1QkFhMV9WRjBLTDZxNlVQTFZ1bEExVFExbzdKN3k2UGphNjRTSXNB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+BTS+Let+Off+Steam+After+a+Big+Night+In+%E2%80%98NORMAL%E2%80%99+Music+Video%3A+Watch+-+Billboard&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-xNlVQTFZ1bEExVFExbzdKN3k2UGphNjRTSXNBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22bts%22%2C+%22creator%22%3A+%22Billboard%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+BTS+Let+Off+Steam+After+a+Big+Night+In+%E2%80%98NORMAL%E2%80%99+Music+Video%3A+Watch+-+Billboard%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiggFBVV95cUxQOXhTNUQxU0JQWC1xM2V3MHlqX2xYTGJhWHhqVWV0ZHFhak9lSml6a1gzQXFaRmxYc3ZPeFBZRVNQeHZtTXd2SDZOOHFFenMwd1lGX1Y5NTNSZzZ1QkFhMV9WRjBLTDZxNlVQTFZ1bEExVFExbzdKN3k2UGphNjRTSXNB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #FB923C">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #FB923C55, #FB923C22)'><span class='placeholder-emoji'>🏀</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#FB923C33; color:#FB923C">Nba</span>
+          <span class='stamp'>NEW</span>
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMisgFBVV95cUxOWWVjUVNqbF9GeW1teS01Vl9xRVR6NWtjOWhFQzB2NnFWLV9raENMclo4ck9PTlFQekFEZ2ctVW1pVUtWM3dLSVM0NVZBbE9kajlIVHJyY3ZQa1dHSVNVbkljaG43MVNXbTVoaVp6cjNGc3FqenVyamJBNlM2OEtFTVVyUnYxWTljcDVwWExKa2d3UmtaaHozMlEtYjhtaG9FOW83MnQtTmItbjlrbUJtME13?oc=5" target="_blank" rel="noopener">Why the Giannis Trade and 4 Other NBA Offseason Moves Are Sure To Backfire - Bleacher Report</a>
+        <div class="card-meta">Bleacher Report &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Why+the+Giannis+Trade+and+4+Other+NBA+Offseason+Moves+Are+Sure+To+Backfire+-+Ble&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-zMlEtYjhtaG9FOW83MnQtTmItbjlrbUJtME13oc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Bleacher+Report%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Why+the+Giannis+Trade+and+4+Other+NBA+Offseason+Moves+Are+Sure+To+Backfire+-+Bleacher+Report%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMisgFBVV95cUxOWWVjUVNqbF9GeW1teS01Vl9xRVR6NWtjOWhFQzB2NnFWLV9raENMclo4ck9PTlFQekFEZ2ctVW1pVUtWM3dLSVM0NVZBbE9kajlIVHJyY3ZQa1dHSVNVbkljaG43MVNXbTVoaVp6cjNGc3FqenVyamJBNlM2OEtFTVVyUnYxWTljcDVwWExKa2d3UmtaaHozMlEtYjhtaG9FOW83MnQtTmItbjlrbUJtME13%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Why+the+Giannis+Trade+and+4+Other+NBA+Offseason+Moves+Are+Sure+To+Backfire+-+Ble&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-zMlEtYjhtaG9FOW83MnQtTmItbjlrbUJtME13oc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Bleacher+Report%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Why+the+Giannis+Trade+and+4+Other+NBA+Offseason+Moves+Are+Sure+To+Backfire+-+Bleacher+Report%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMisgFBVV95cUxOWWVjUVNqbF9GeW1teS01Vl9xRVR6NWtjOWhFQzB2NnFWLV9raENMclo4ck9PTlFQekFEZ2ctVW1pVUtWM3dLSVM0NVZBbE9kajlIVHJyY3ZQa1dHSVNVbkljaG43MVNXbTVoaVp6cjNGc3FqenVyamJBNlM2OEtFTVVyUnYxWTljcDVwWExKa2d3UmtaaHozMlEtYjhtaG9FOW83MnQtTmItbjlrbUJtME13%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #FB923C">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #FB923C55, #FB923C22)'><span class='placeholder-emoji'>🏀</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#FB923C33; color:#FB923C">Nba</span>
+          <span class='stamp'>NEW</span>
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMihwFBVV95cUxOMm1rVm5sdmlYdlpFMm8ySnplemlXZUtEM0FiQUEtcG9yV0pzOEFveHdPN2NHVlItN3hOYTZ3VGZMMFVxWDAtRDNvV2hUZ253ZjIyUlpmVjNzYm9zUUhDQmd4VTRmV2I4c2RySWthYjNJSWFEX2F6YVhhU181aURWcTQ2RkVJS3M?oc=5" target="_blank" rel="noopener">NBA Players Leaving Money on the Table Has Become a Valuable Weapon - Yahoo Sports</a>
+        <div class="card-meta">Yahoo Sports &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+NBA+Players+Leaving+Money+on+the+Table+Has+Become+a+Valuable+Weapon+-+Yahoo+Spor&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-thYjNJSWFEX2F6YVhhU181aURWcTQ2RkVJS3Moc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Yahoo+Sports%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+NBA+Players+Leaving+Money+on+the+Table+Has+Become+a+Valuable+Weapon+-+Yahoo+Sports%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMihwFBVV95cUxOMm1rVm5sdmlYdlpFMm8ySnplemlXZUtEM0FiQUEtcG9yV0pzOEFveHdPN2NHVlItN3hOYTZ3VGZMMFVxWDAtRDNvV2hUZ253ZjIyUlpmVjNzYm9zUUhDQmd4VTRmV2I4c2RySWthYjNJSWFEX2F6YVhhU181aURWcTQ2RkVJS3M%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+NBA+Players+Leaving+Money+on+the+Table+Has+Become+a+Valuable+Weapon+-+Yahoo+Spor&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-thYjNJSWFEX2F6YVhhU181aURWcTQ2RkVJS3Moc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nba%22%2C+%22creator%22%3A+%22Yahoo+Sports%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+NBA+Players+Leaving+Money+on+the+Table+Has+Become+a+Valuable+Weapon+-+Yahoo+Sports%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMihwFBVV95cUxOMm1rVm5sdmlYdlpFMm8ySnplemlXZUtEM0FiQUEtcG9yV0pzOEFveHdPN2NHVlItN3hOYTZ3VGZMMFVxWDAtRDNvV2hUZ253ZjIyUlpmVjNzYm9zUUhDQmd4VTRmV2I4c2RySWthYjNJSWFEX2F6YVhhU181aURWcTQ2RkVJS3M%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #4ADE80">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #4ADE8055, #4ADE8022)'><span class='placeholder-emoji'>🏈</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#4ADE8033; color:#4ADE80">Nfl</span>
+          
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMiggFBVV95cUxPc0Q4VUZDdEFlUEpGMnlvRVNPS1NDeEwwamQ1SnJqdHE2SnZZNmVUT0FrU3MyOVY2MWlPWVNRSE5NSjlxUWRMRHhIWnVmNDRkRml0ZlFyaXJIZXZkaUZBMVZjOGUzMjRVVG04ckVfLW9lOFJ1MS1NLVpjQWp1MlQyakZ3?oc=5" target="_blank" rel="noopener">Who fell out of the NFL top-10 positional rankings in 2026? - ESPN</a>
+        <div class="card-meta">ESPN &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Who+fell+out+of+the+NFL+top-10+positional+rankings+in+2026%3F+-+ESPN&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-VVG04ckVfLW9lOFJ1MS1NLVpjQWp1MlQyakZ3oc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nfl%22%2C+%22creator%22%3A+%22ESPN%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Who+fell+out+of+the+NFL+top-10+positional+rankings+in+2026%3F+-+ESPN%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiggFBVV95cUxPc0Q4VUZDdEFlUEpGMnlvRVNPS1NDeEwwamQ1SnJqdHE2SnZZNmVUT0FrU3MyOVY2MWlPWVNRSE5NSjlxUWRMRHhIWnVmNDRkRml0ZlFyaXJIZXZkaUZBMVZjOGUzMjRVVG04ckVfLW9lOFJ1MS1NLVpjQWp1MlQyakZ3%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Who+fell+out+of+the+NFL+top-10+positional+rankings+in+2026%3F+-+ESPN&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-VVG04ckVfLW9lOFJ1MS1NLVpjQWp1MlQyakZ3oc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nfl%22%2C+%22creator%22%3A+%22ESPN%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Who+fell+out+of+the+NFL+top-10+positional+rankings+in+2026%3F+-+ESPN%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiggFBVV95cUxPc0Q4VUZDdEFlUEpGMnlvRVNPS1NDeEwwamQ1SnJqdHE2SnZZNmVUT0FrU3MyOVY2MWlPWVNRSE5NSjlxUWRMRHhIWnVmNDRkRml0ZlFyaXJIZXZkaUZBMVZjOGUzMjRVVG04ckVfLW9lOFJ1MS1NLVpjQWp1MlQyakZ3%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #4ADE80">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #4ADE8055, #4ADE8022)'><span class='placeholder-emoji'>🏈</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#4ADE8033; color:#4ADE80">Nfl</span>
+          
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMif0FVX3lxTFBicUhlaW1KY3dOdVNNTko5VlZienZHVVhYem5pUURGemtvTGR1LWNROEdDZE5PalJmTncxRkZOSHhUMEp3SUxTZGVIMnVmcnBVVWRfS3JSc1V0X0RTUllYQzQ4QkVpNEN1NWRWOThhN0h4V3ViTUs5M3NpeDJWWFU?oc=5" target="_blank" rel="noopener">Biggest remaining roster issue for every AFC team - NFL.com</a>
+        <div class="card-meta">NFL.com &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Biggest+remaining+roster+issue+for+every+AFC+team+-+NFL.com&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-VpNEN1NWRWOThhN0h4V3ViTUs5M3NpeDJWWFUoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nfl%22%2C+%22creator%22%3A+%22NFL.com%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Biggest+remaining+roster+issue+for+every+AFC+team+-+NFL.com%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMif0FVX3lxTFBicUhlaW1KY3dOdVNNTko5VlZienZHVVhYem5pUURGemtvTGR1LWNROEdDZE5PalJmTncxRkZOSHhUMEp3SUxTZGVIMnVmcnBVVWRfS3JSc1V0X0RTUllYQzQ4QkVpNEN1NWRWOThhN0h4V3ViTUs5M3NpeDJWWFU%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Biggest+remaining+roster+issue+for+every+AFC+team+-+NFL.com&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-VpNEN1NWRWOThhN0h4V3ViTUs5M3NpeDJWWFUoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22nfl%22%2C+%22creator%22%3A+%22NFL.com%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Biggest+remaining+roster+issue+for+every+AFC+team+-+NFL.com%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMif0FVX3lxTFBicUhlaW1KY3dOdVNNTko5VlZienZHVVhYem5pUURGemtvTGR1LWNROEdDZE5PalJmTncxRkZOSHhUMEp3SUxTZGVIMnVmcnBVVWRfS3JSc1V0X0RTUllYQzQ4QkVpNEN1NWRWOThhN0h4V3ViTUs5M3NpeDJWWFU%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #FACC15">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #FACC1555, #FACC1522)'><span class='placeholder-emoji'>🎮</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#FACC1533; color:#FACC15">Smash</span>
+          
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMid0FVX3lxTE5sUXUtZmpKb0NMc1JkalhRY19oemY4NzE3WGdBUFZnRXppTGJLYmlxS0dEakhfX1F3Q2c3QXM2NzlkMWF4WWJZUHpjdmFFRkZOcGJHUzZ5MUZRRkcxRk1NMldDb3lpdTdHOHlkMFo5amF3cnV2cEVr?oc=5" target="_blank" rel="noopener">Syrup Is a ‘Destroyer of Worlds’ Among Gamers. Now, He Plays Smash Bros. for the Orange - Syracuse University Today</a>
+        <div class="card-meta">Syracuse University Today &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Syrup+Is+a+%E2%80%98Destroyer+of+Worlds%E2%80%99+Among+Gamers.+Now%2C+He+Plays+Smash+Bros.+for+the&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-xRk1NMldDb3lpdTdHOHlkMFo5amF3cnV2cEVroc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22smash%22%2C+%22creator%22%3A+%22Syracuse+University+Today%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Syrup+Is+a+%E2%80%98Destroyer+of+Worlds%E2%80%99+Among+Gamers.+Now%2C+He+Plays+Smash+Bros.+for+the+Orange+-+Syracuse+University+Today%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMid0FVX3lxTE5sUXUtZmpKb0NMc1JkalhRY19oemY4NzE3WGdBUFZnRXppTGJLYmlxS0dEakhfX1F3Q2c3QXM2NzlkMWF4WWJZUHpjdmFFRkZOcGJHUzZ5MUZRRkcxRk1NMldDb3lpdTdHOHlkMFo5amF3cnV2cEVr%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Syrup+Is+a+%E2%80%98Destroyer+of+Worlds%E2%80%99+Among+Gamers.+Now%2C+He+Plays+Smash+Bros.+for+the&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-xRk1NMldDb3lpdTdHOHlkMFo5amF3cnV2cEVroc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22smash%22%2C+%22creator%22%3A+%22Syracuse+University+Today%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Syrup+Is+a+%E2%80%98Destroyer+of+Worlds%E2%80%99+Among+Gamers.+Now%2C+He+Plays+Smash+Bros.+for+the+Orange+-+Syracuse+University+Today%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMid0FVX3lxTE5sUXUtZmpKb0NMc1JkalhRY19oemY4NzE3WGdBUFZnRXppTGJLYmlxS0dEakhfX1F3Q2c3QXM2NzlkMWF4WWJZUHpjdmFFRkZOcGJHUzZ5MUZRRkcxRk1NMldDb3lpdTdHOHlkMFo5amF3cnV2cEVr%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #FACC15">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #FACC1555, #FACC1522)'><span class='placeholder-emoji'>🎮</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#FACC1533; color:#FACC15">Smash</span>
+          
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE5BNVJQNlNoLVdtUGtfVmx6RVg2UVN3TW5LM3NOVngxNGV4M0dJb0F6eXo5VnJqOE1sRlI1NXB3TkZPN1JvNEEyWmxCczFXRVlvT2t3V3VQQUJLblFYN1hWYjlzWDJsNy1F?oc=5" target="_blank" rel="noopener">WIU Digital Rec Center Launches Weekly Super Smash Bros. Ultimate Events - Western Illinois University</a>
+        <div class="card-meta">Western Illinois University &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+WIU+Digital+Rec+Center+Launches+Weekly+Super+Smash+Bros.+Ultimate+Events+-+Weste&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-XRVlvT2t3V3VQQUJLblFYN1hWYjlzWDJsNy1Foc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22smash%22%2C+%22creator%22%3A+%22Western+Illinois+University%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+WIU+Digital+Rec+Center+Launches+Weekly+Super+Smash+Bros.+Ultimate+Events+-+Western+Illinois+University%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiaEFVX3lxTE5BNVJQNlNoLVdtUGtfVmx6RVg2UVN3TW5LM3NOVngxNGV4M0dJb0F6eXo5VnJqOE1sRlI1NXB3TkZPN1JvNEEyWmxCczFXRVlvT2t3V3VQQUJLblFYN1hWYjlzWDJsNy1F%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+WIU+Digital+Rec+Center+Launches+Weekly+Super+Smash+Bros.+Ultimate+Events+-+Weste&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-XRVlvT2t3V3VQQUJLblFYN1hWYjlzWDJsNy1Foc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22smash%22%2C+%22creator%22%3A+%22Western+Illinois+University%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+WIU+Digital+Rec+Center+Launches+Weekly+Super+Smash+Bros.+Ultimate+Events+-+Western+Illinois+University%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiaEFVX3lxTE5BNVJQNlNoLVdtUGtfVmx6RVg2UVN3TW5LM3NOVngxNGV4M0dJb0F6eXo5VnJqOE1sRlI1NXB3TkZPN1JvNEEyWmxCczFXRVlvT2t3V3VQQUJLblFYN1hWYjlzWDJsNy1F%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #F87171">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #F8717155, #F8717122)'><span class='placeholder-emoji'>🎯</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#F8717133; color:#F87171">Valorant</span>
+          
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMiakFVX3lxTE5WRW1jZWRubnRUMW9YM2l6QXJSOGxhTGlzd3dLWlJiYXUxVFJOM2tYVmtXTW1pMGpSMUhSR285U0dGc0FJOFRoT05XZHpieF9ueFl3azRDMVZwYlM3RUczb3N0RTBLbV9FNHc?oc=5" target="_blank" rel="noopener">NOVA VS JDG - VALORANT Esports | Schedule</a>
+        <div class="card-meta">VALORANT Esports | Schedule &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+NOVA+VS+JDG+-+VALORANT+Esports+%7C+Schedule&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-9ueFl3azRDMVZwYlM3RUczb3N0RTBLbV9FNHcoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22valorant%22%2C+%22creator%22%3A+%22VALORANT+Esports+%7C+Schedule%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+NOVA+VS+JDG+-+VALORANT+Esports+%7C+Schedule%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiakFVX3lxTE5WRW1jZWRubnRUMW9YM2l6QXJSOGxhTGlzd3dLWlJiYXUxVFJOM2tYVmtXTW1pMGpSMUhSR285U0dGc0FJOFRoT05XZHpieF9ueFl3azRDMVZwYlM3RUczb3N0RTBLbV9FNHc%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+NOVA+VS+JDG+-+VALORANT+Esports+%7C+Schedule&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-9ueFl3azRDMVZwYlM3RUczb3N0RTBLbV9FNHcoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22valorant%22%2C+%22creator%22%3A+%22VALORANT+Esports+%7C+Schedule%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+NOVA+VS+JDG+-+VALORANT+Esports+%7C+Schedule%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiakFVX3lxTE5WRW1jZWRubnRUMW9YM2l6QXJSOGxhTGlzd3dLWlJiYXUxVFJOM2tYVmtXTW1pMGpSMUhSR285U0dGc0FJOFRoT05XZHpieF9ueFl3azRDMVZwYlM3RUczb3N0RTBLbV9FNHc%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #F87171">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #F8717155, #F8717122)'><span class='placeholder-emoji'>🎯</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#F8717133; color:#F87171">Valorant</span>
+          
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMiekFVX3lxTE00ZE5MSHYxR2I1Z1l0ZWxGRS1mQWhEWm8tdFlLeURSOVhZb1lzdTJRS3d2NTNGM0E2SzBlRS1qRElOUFlpSmFFUzJTc1ljTDRLTldqTjlCeTJ6RE91UHdSbjVWc0hmQ3cwSk41Q0xiV0hlWnlRTmxWWlJB?oc=5" target="_blank" rel="noopener">VALORANT Masters London 2026 - Valorant - Viewership, Overview, Prize Pool - Esports Charts</a>
+        <div class="card-meta">Esports Charts &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+VALORANT+Masters+London+2026+-+Valorant+-+Viewership%2C+Overview%2C+Prize+Pool+-+Esp&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-SbjVWc0hmQ3cwSk41Q0xiV0hlWnlRTmxWWlJBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22valorant%22%2C+%22creator%22%3A+%22Esports+Charts%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+VALORANT+Masters+London+2026+-+Valorant+-+Viewership%2C+Overview%2C+Prize+Pool+-+Esports+Charts%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiekFVX3lxTE00ZE5MSHYxR2I1Z1l0ZWxGRS1mQWhEWm8tdFlLeURSOVhZb1lzdTJRS3d2NTNGM0E2SzBlRS1qRElOUFlpSmFFUzJTc1ljTDRLTldqTjlCeTJ6RE91UHdSbjVWc0hmQ3cwSk41Q0xiV0hlWnlRTmxWWlJB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+VALORANT+Masters+London+2026+-+Valorant+-+Viewership%2C+Overview%2C+Prize+Pool+-+Esp&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-SbjVWc0hmQ3cwSk41Q0xiV0hlWnlRTmxWWlJBoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22valorant%22%2C+%22creator%22%3A+%22Esports+Charts%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+VALORANT+Masters+London+2026+-+Valorant+-+Viewership%2C+Overview%2C+Prize+Pool+-+Esports+Charts%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiekFVX3lxTE00ZE5MSHYxR2I1Z1l0ZWxGRS1mQWhEWm8tdFlLeURSOVhZb1lzdTJRS3d2NTNGM0E2SzBlRS1qRElOUFlpSmFFUzJTc1ljTDRLTldqTjlCeTJ6RE91UHdSbjVWc0hmQ3cwSk41Q0xiV0hlWnlRTmxWWlJB%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #60A5FA">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #60A5FA55, #60A5FA22)'><span class='placeholder-emoji'>📰</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#60A5FA33; color:#60A5FA">World News</span>
+          
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMinwFBVV95cUxQM2ttMFRUekdHdWRSYzZRM0lvd2ZiYUhHMmhLNmctSzFZOG5hTEtWUnMxRTZIVks4bnIyY3Fpd0pKN2dBZ0tOT25LNUU1RGtyZkJHNVdHYU42dzJCLU00MWhNbTVJNE0xZ3ZneE5BVm81UGdKb2s1WDNra1Q5TW41c3RGeFhub2dXSlVKcm13Zk5HQnBJMEFzUlZETGdEb2_SAaQBQVVfeXFMTWNtUGhJQklCVUlJMUhPbGxOUzNGa3ZQUzFMRjZ2QXNRYjR2MXBFNFcyN0NVdjlJSlpWaEhWQTNxUnRDQ1dUT19RUjE1R2hkdjZiQ3F5ZjB3WEZ1ZVQxNzdkcDdObFAzd3dxVTlYVTREbkJoTTZfWjllN3lmcmVQSUhjUEgzWGl5UGc1SG8wQnI5cDUxMWZ6VGd3dG9aTTVRUm1HQ3I?oc=5" target="_blank" rel="noopener">Apple regains top spot as world’s most valuable company - Al Jazeera</a>
+        <div class="card-meta">Al Jazeera &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Apple+regains+top+spot+as+world%E2%80%99s+most+valuable+company+-+Al+Jazeera&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-c1SG8wQnI5cDUxMWZ6VGd3dG9aTTVRUm1HQ3Ioc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22world_news%22%2C+%22creator%22%3A+%22Al+Jazeera%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Apple+regains+top+spot+as+world%E2%80%99s+most+valuable+company+-+Al+Jazeera%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMinwFBVV95cUxQM2ttMFRUekdHdWRSYzZRM0lvd2ZiYUhHMmhLNmctSzFZOG5hTEtWUnMxRTZIVks4bnIyY3Fpd0pKN2dBZ0tOT25LNUU1RGtyZkJHNVdHYU42dzJCLU00MWhNbTVJNE0xZ3ZneE5BVm81UGdKb2s1WDNra1Q5TW41c3RGeFhub2dXSlVKcm13Zk5HQnBJMEFzUlZETGdEb2_SAaQBQVVfeXFMTWNtUGhJQklCVUlJMUhPbGxOUzNGa3ZQUzFMRjZ2QXNRYjR2MXBFNFcyN0NVdjlJSlpWaEhWQTNxUnRDQ1dUT19RUjE1R2hkdjZiQ3F5ZjB3WEZ1ZVQxNzdkcDdObFAzd3dxVTlYVTREbkJoTTZfWjllN3lmcmVQSUhjUEgzWGl5UGc1SG8wQnI5cDUxMWZ6VGd3dG9aTTVRUm1HQ3I%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Apple+regains+top+spot+as+world%E2%80%99s+most+valuable+company+-+Al+Jazeera&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-c1SG8wQnI5cDUxMWZ6VGd3dG9aTTVRUm1HQ3Ioc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22world_news%22%2C+%22creator%22%3A+%22Al+Jazeera%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Apple+regains+top+spot+as+world%E2%80%99s+most+valuable+company+-+Al+Jazeera%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMinwFBVV95cUxQM2ttMFRUekdHdWRSYzZRM0lvd2ZiYUhHMmhLNmctSzFZOG5hTEtWUnMxRTZIVks4bnIyY3Fpd0pKN2dBZ0tOT25LNUU1RGtyZkJHNVdHYU42dzJCLU00MWhNbTVJNE0xZ3ZneE5BVm81UGdKb2s1WDNra1Q5TW41c3RGeFhub2dXSlVKcm13Zk5HQnBJMEFzUlZETGdEb2_SAaQBQVVfeXFMTWNtUGhJQklCVUlJMUhPbGxOUzNGa3ZQUzFMRjZ2QXNRYjR2MXBFNFcyN0NVdjlJSlpWaEhWQTNxUnRDQ1dUT19RUjE1R2hkdjZiQ3F5ZjB3WEZ1ZVQxNzdkcDdObFAzd3dxVTlYVTREbkJoTTZfWjllN3lmcmVQSUhjUEgzWGl5UGc1SG8wQnI5cDUxMWZ6VGd3dG9aTTVRUm1HQ3I%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #60A5FA">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #60A5FA55, #60A5FA22)'><span class='placeholder-emoji'>📰</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#60A5FA33; color:#60A5FA">World News</span>
+          
+        </div>
+        <a class="card-title" href="https://news.google.com/rss/articles/CBMifkFVX3lxTFB3cDRtVWd6XzNSOFYybFpsemxYZ05OUWd3Mkx6LXFGcTZZUmpRZEp4TE9UWVBJaG9mLXVaNXRQekx6RFJXckFNYmRNOEdyX0o3TVRHOFNvUlg3UVVPcWRsT1lfMWNoai1nWGx4dEJaelRrX0h2bGtXY29WYk82Zw?oc=5" target="_blank" rel="noopener">Antimicrobial resistance - World Health Organization (WHO)</a>
+        <div class="card-meta">World Health Organization (WHO) &middot; Article</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+Antimicrobial+resistance+-+World+Health+Organization+%28WHO%29&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-WNoai1nWGx4dEJaelRrX0h2bGtXY29WYk82Zwoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22world_news%22%2C+%22creator%22%3A+%22World+Health+Organization+%28WHO%29%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Antimicrobial+resistance+-+World+Health+Organization+%28WHO%29%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMifkFVX3lxTFB3cDRtVWd6XzNSOFYybFpsemxYZ05OUWd3Mkx6LXFGcTZZUmpRZEp4TE9UWVBJaG9mLXVaNXRQekx6RFJXckFNYmRNOEdyX0o3TVRHOFNvUlg3UVVPcWRsT1lfMWNoai1nWGx4dEJaelRrX0h2bGtXY29WYk82Zw%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+Antimicrobial+resistance+-+World+Health+Organization+%28WHO%29&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22news-WNoai1nWGx4dEJaelRrX0h2bGtXY29WYk82Zwoc5%22%2C+%22type%22%3A+%22article%22%2C+%22topic%22%3A+%22world_news%22%2C+%22creator%22%3A+%22World+Health+Organization+%28WHO%29%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+Antimicrobial+resistance+-+World+Health+Organization+%28WHO%29%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMifkFVX3lxTFB3cDRtVWd6XzNSOFYybFpsemxYZ05OUWd3Mkx6LXFGcTZZUmpRZEp4TE9UWVBJaG9mLXVaNXRQekx6RFJXckFNYmRNOEdyX0o3TVRHOFNvUlg3UVVPcWRsT1lfMWNoai1nWGx4dEJaelRrX0h2bGtXY29WYk82Zw%3Foc%3D5%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="--accent: #F472B6">
+      <div class='card-media placeholder' style='background: linear-gradient(135deg, #F472B655, #F472B622)'><span class='placeholder-emoji'>🎧</span></div>
+      <div class="card-body">
+        <div class="card-topic-row">
+          <span class="topic-chip" style="background:#F472B633; color:#F472B6">Podcasts</span>
+          
+        </div>
+        <a class="card-title" href="https://podcasts.apple.com/us/podcast/the-ringer-nba-show/id1109271715?uo=4" target="_blank" rel="noopener">The Ringer NBA Show</a>
+        <div class="card-meta">The Ringer &middot; Podcast</div>
+        <div class="card-feedback">
+          <a class="fb like" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8D+Like%3A+The+Ringer+NBA+Show&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22podcast-1109271715%22%2C+%22type%22%3A+%22podcast%22%2C+%22topic%22%3A+%22podcasts%22%2C+%22creator%22%3A+%22The+Ringer%22%2C+%22action%22%3A+%22like%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+The+Ringer+NBA+Show%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fpodcasts.apple.com%2Fus%2Fpodcast%2Fthe-ringer-nba-show%2Fid1109271715%3Fuo%3D4%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Clike" target="_blank" rel="noopener">&#128077;</a>
+          <a class="fb dislike" href="https://github.com/JasonDKN/algo-rhythm/issues/new?title=%F0%9F%91%8E+Dislike%3A+The+Ringer+NBA+Show&amp;body=%3C%21--+digest-feedback%0A%7B%22item_id%22%3A+%22podcast-1109271715%22%2C+%22type%22%3A+%22podcast%22%2C+%22topic%22%3A+%22podcasts%22%2C+%22creator%22%3A+%22The+Ringer%22%2C+%22action%22%3A+%22dislike%22%7D%0A--%3E%0A%2A%2AItem%3A%2A%2A+The+Ringer+NBA+Show%0A%0A%2A%2ALink%3A%2A%2A+https%3A%2F%2Fpodcasts.apple.com%2Fus%2Fpodcast%2Fthe-ringer-nba-show%2Fid1109271715%3Fuo%3D4%0A%0A_Submitting+this+issue+logs+your+feedback.+It+will+be+auto-closed._&amp;labels=digest-feedback%2Cdislike" target="_blank" rel="noopener">&#128078;</a>
+        </div>
+      </div>
+    </div></div>
+</section>
 
 <footer>
-  Sources: Google News, YouTube, Google Books, iTunes &middot; Rebuilt daily by GitHub Actions &middot;
+  Sources: Google News, YouTube, Google Books, iTunes, MyMemory &middot; Rebuilt daily by GitHub Actions &middot;
   Tap &#128077;/&#128078; to teach it your taste &middot; Edit <span class="mono">config.json</span> to retune topics &middot;
-  <a href="checkin.html" style="color:var(--teal)">Weekly check-in &amp; profile summary</a>
+  <a href="checkin.html">Weekly check-in &amp; profile summary</a>
 </footer>
 </body>
 </html>
